@@ -119,12 +119,12 @@ class RegisterHandler(LoginHandler):
             self.render('signup.html')
 
         if password != repeat_password:
-            self.flash_message("Password doesn't match", 'error')
+            self.flash_message("Password doesn't match", 'error') 
         if username and not username_validator.match(username):
             self.flash_message('Username is invalid', 'error')
         if email and not email_validator.match(email):
             self.flash_message('Not a valid email address', 'error')
-        if username and self.db.user.find_one({'usernmae': usernmae}):
+        if username and self.db.user.find_one({'username': username}):
             self.flash_message('This username is already registered', 'error')
         if email and self.db.user.find_one({'email' : email}):
             self.flash_message('This email is already registered', 'warn')
