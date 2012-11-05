@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{% end %}{{handler.settings['forum_title'] }}</title>
+    <link rel="stylesheet" href="{{ static_url('css/style.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{ static_url('css/fontello/css/fontello.css')}}" type="text/css" />
+    
+    <link rel="canonical" href="{{ handler.settings['forum_url']}}{% block canonical %}{% end %}"/>
+    <link rel="alternate" type="application/atom+xml" href={% block feed %}/feed{% end %} />
+    {% block head %}{% end %}
+  </head>
+  <body>
+    <header id="header" role="banner">
+      <div class="wrapper fn-clear">
+        <h1><a href="/">{{ handler.settings['forum_title']}}</a></h1>
+        <div class="user-box fn-clear">
+          <div class="user">
+            <span class="icon-user-1"></span>
+          </div>
+          <nav class="user-links">
+            {% if current_user %}
+            <a href="/topic/create" original-title="创建主题"><span class="icon-edit"></span></a>
+            <a href="/account/setting" original-title="设置"><span class="icon-cog"></span></a>
+            <a href="/account/signout" original-title="登出"><span class="icon-logout"></span></a>
+            {% else %}
+            <a href="/account/signin" orignal-title="登陆"><span class="icon-login"></span></a>
+            {% end %}
+          </nav>
+        </div>
+    </header>
+    <nav id="nav" role="navigation">
+      <a href="/">{{ _("Communtiy") }}</a>
+      <a href="/idea">{{ _("Idea") }}</a>
+      <a href="/wiki">{{ _("Wiki") }}</a>
+    </nav>
+    </div>
+
+    <div id="main">
+      <div class="wrapper fn-clear">
+        {% block main %}
+        <div id="content">
+          {% block content %}{% end %}
+        </div>
+        <div id="sidebar">
+          {% block notification %}
+          <div class="ui-box">
+            <div class="ui-box-header">
+              <h4>{{ _("Notification") }}</h4>
+            </div>
+            <div class="ui-box-container">
+              <a class="notification" href="/account/notification">test notifycation</a>
+            </div>
+          </div>
+          {% end %}
+          {% end %}
+          {% block sidebar %}{% end %}
+
+          {% block siteinfo %}
+          <div class="ui-box">
+            <div class="ui-box-container">
+            </div>
+          </div>
+          {% end %}
+
+        </div>
+      </div>
+    </div>
