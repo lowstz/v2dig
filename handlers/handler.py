@@ -131,7 +131,9 @@ class RegisterHandler(LoginHandler):
                 
                 
                 
-
+class IdeaHandler(BaseHandler):
+    def get(self):
+        self.render("idea.html")
         
 
 # Toolkit
@@ -162,6 +164,7 @@ def validate_password(hashed, input_password):
 handlers = [
     url(r'/', IndexHandler),
     url(r'/account/signin', LoginHandler),
+    url(r'/idea',IdeaHandler),
     ]
 
         
