@@ -35,7 +35,7 @@
       <a href="/wiki">{{ _("Wiki") }}</a>
     </nav>
     </div>
-
+    
     <div id="main">
       <div class="wrapper fn-clear">
         {% block main %}
@@ -43,26 +43,16 @@
           {% block content %}{% end %}
         </div>
         <div id="sidebar">
-          {% block notification %}
-          <div class="ui-box">
-            <div class="ui-box-header">
-              <h4>{{ _("Notification") }}</h4>
-            </div>
-            <div class="ui-box-container">
-              <a class="notification" href="/account/notification">test notifycation</a>
-            </div>
-          </div>
-          {% end %}
-          {% end %}
-          {% block sidebar %}{% end %}
-
-          {% block siteinfo %}
-          <div class="ui-box">
-            <div class="ui-box-container">
-            </div>
-          </div>
-          {% end %}
-
+        {% block sidebar %}{% end %}
         </div>
+        {% end %}
       </div>
     </div>
+
+    <footer id="footer">
+      <div class="wrapper">
+        <p>Copyright &copy; {{handler.settings['forum_title']}}. All articles &copy; their respective owners.</p>
+      </div>
+    </footer>
+  <body>
+</html>
