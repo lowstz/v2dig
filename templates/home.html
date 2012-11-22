@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content  %}
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <a href="/">V2dig </a>  » Communtiy
+  </div>
+  {% for topic in topics %}
+  <div class="ui-cell article">
+    <a href="/member/{{ topic['author'] }}" class="ui-avatar"><img src="http://1.gravatar.com/avatar/3466e178f178d151c1cd8ad59b489e2b" width="48" height="48"></a>
+    <a href="/topic/{{topic['tid']}}" class="ui-cell-top-right" title="{{topic['reply_count']}}">{{topic['reply_count']}}</a>
+    <div class="article fn-wrap">
+      <h3><a href="/topic/{{topic['tid']}}">{{topic['title']}}</a></h3>
+      <div class="article-meta">
+        by <a href="/user/{{topic['author']}}">{{topic['author']}}</a> •
+        in <a href="/node/{{topic['node']}}">{{topic['node']}}</a> •
+        <time datetime="{{ topic['last_reply_time'] }}" title="replied">{{topic['last_reply_time']}}</time>
+      </div>
+    </div>
+  </div>
+  {% end %}
+</div>
+{% end %}
+
+{% block sidebar %}
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h4>{{ _("搜索") }}</h4>
+  </div>
+  <div class="ui-box-container">
+    <form action="/search" class="ui-box-container">
+      <input type="text" class="fm-text" name="q" placeholder="Search ..">
+    </form>
+  </div>
+</div>
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h4>{{ _("Don't have an account?") }}</h4>
+  </div>
+  <div class="ui-box-container">
+    <a href="/account/signup" class="ui-btn">{{ _("Signup") }}</a>
+  </div>
+</div>
+
+{% end %}
