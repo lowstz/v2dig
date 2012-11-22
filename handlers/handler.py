@@ -119,9 +119,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
         
         
-class IndexHandler(BaseHandler):
-    def get(self):
-        self.render('home.html')
 
 class LoginHandler(BaseHandler):
     def get(self):
@@ -197,7 +194,12 @@ class SignoutHandler(BaseHandler):
 
 
 class HomeHandler(BaseHandler):
-    pass
+    def head(self):
+        pass
+    def get(self):
+        topics = self.db.topic.find().sort('tid', -1)
+        self.render("home.html", topics=topics)
+    
 
 
 def send_verify_email(request_handler, email_address, username, password):
@@ -211,7 +213,7 @@ def send_verify_email(request_handler, email_address, username, password):
 
 # Handler
 handlers = [
-    url(r'/', IndexHandler),
+    url(r'/', HomeHandler),
     url(r'/account/signup', RegisterHandler),
     url(r'/account/signin', LoginHandler),
     url(r'/account/signout', SignoutHandler),
