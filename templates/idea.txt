@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}
+Idea	--
+{% end %}
+{% block head %}
+<style type="text/css">
+.item_title {
+    font-size: 16px;
+    line-height: 130%;
+    text-shadow: 0px 1px 0px #fff;
+}
+.small {
+    font-size: 11px;
+}
+.sep5 {
+    height: 5px;
+}
+.fade {
+    color: #ccc;
+}
+.box {
+    background-color: #fff;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    border-bottom: 2px solid #fef8ee;
+    border-bottom: 2px solid #e2e2e9;
+}
+.cell {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 120%;
+    text-align: left;
+    border-bottom: 1px solid #e2e2e2;
+}
+a.tab_current:hover {
+    background-color: #445;
+    color: #fff;
+    text-decoration: none;
+}
+a.tab_current:link, a.tab_current:visited, a.tab_current:active {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 5px 8px 5px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    background-color: #334;
+    color: #fff;
+}
+a.tab:link, a.tab:visited, a.tab:active {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 5px 8px 5px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #555;
+}
+
+a.tab:hover {
+    background-color: #f5f5f5;
+    color: #000;
+    text-decoration: none;
+}
+a.count_livid:link, a.count_livid:active {
+	line-height: 12px;
+	font-weight: bold;
+	color: white;
+	background-color: #aab0c6;
+	display: inline-block;
+	padding: 2px 10px 2px 10px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	text-decoration: none;
+	margin-right: 5px;
+}
+
+a.count_livid:hover {
+	line-height: 12px;
+	font-weight: bold;
+	color: white;
+	background-color: #969cb1;
+	display: inline-block;
+	padding: 2px 10px 2px 10px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	text-decoration: none;
+}
+.inner {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 150%;
+    text-align: left;
+}
+.inner a.thank, .cell a.thank {
+    display: inline-block;
+    line-height: 12px;
+    visibility: hidden;
+}
+
+.inner:hover a.thank, .cell:hover a.thank {
+    display: inline-block;
+    line-height: 12px;
+    border-radius: 5px;
+    visibility: visible;
+}
+
+.inner:hover a.thank:hover, .cell:hover a.thank:hover {
+    background-color: #f5f5f5;
+    text-decoration: none;
+}
+</style>
+{% end %}
+{% block content %}
+测试测试测试
+    
+   <form action="idea" method="post" >
+    {% raw xsrf_form_html() %}
+	 <p>测试的第一个文本<input type="text" name="tef"></p>
+	 <p>测试的第二个文本<input type="text" name="tes"></p>
+	 <input type="submit" value="Submit" />
+
+   </form>
+   <div class="box"><div class="cell" id="Tabs">
+	 <a href="/?" class="tab_current">软件编程</a>
+	 <a href="/?" class="tab">电子技术</a>
+	 <a href="/?" class="tab">通信技术</a>
+	 <a href="/?" class="tab">PC交流</a>
+	 <a href="/?" class="tab">其他问题</a>
+	 <a href="/?" class="tab">医学交流</a>
+	</div>
+	<p>smsmsm</p>
+	<p>smsmsm</p>
+	<p>smsmsm</p>
+	
+	
+<div class="cell item" style="">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+
+            <td width="48" valign="top" align="center"><img src="static/img/missing.png" class="avatar" border="0" align="default"auto /></td>
+            <td width="10"></td>
+
+            <td width="auto" valign="middle"><span class="item_title"><a href="/?">如何用Gevent更快速的异步爬取内容</a></span>
+            <div class="sep5"></div>
+            <span class="small fade"><a class="node" href="/go/?">Python</a> &nbsp;•&nbsp;
+             <strong><a href="/member/cabinw">用户名</a></strong>
+              &nbsp;•&nbsp; 时间 &nbsp;•&nbsp; 
+              	最后回复来自 <strong><a href="/member/eric_q">eric_q</a></strong>
+            </span>
+            </td>
+            
+            <td width="50" align="right" valign="middle">
+                <a href="/t/？" class="count_livid">回复数</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="cell item" style="">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+
+            <td width="48" valign="top" align="center"><img src="static/img/missing.png" class="avatar" border="0" align="default"auto /></td>
+            <td width="10"></td>
+
+            <td width="auto" valign="middle"><span class="item_title"><a href="/?">如何用Gevent更快速的异步爬取内容</a></span>
+            <div class="sep5"></div>
+            <span class="small fade"><a class="node" href="/go/?">Python</a> &nbsp;•&nbsp;
+             <strong><a href="/member/cabinw">用户名</a></strong>
+              &nbsp;•&nbsp; 时间 &nbsp;•&nbsp; 
+              	最后回复来自 <strong><a href="/member/eric_q">eric_q</a></strong>
+            </span>
+            </td>
+            
+            <td width="50" align="right" valign="middle">
+                <a href="/t/？" class="count_livid">回复数</a>
+            </td>
+        </tr>
+    </table>
+</div>
+	
+
+<div class="inner">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td width="120" align="left"></td>
+                <td width="auto" align="center"><strong class="fade">1/页数</strong></td>
+                <td width="120" align="right"><input type="button" onclick="location.href = '/recent?p=2';" value="下一页 ›" class="super normal button" /></td>
+            </tr>
+        </table>
+</div>
+
+
+</div>
+
+<br>
+{% end %}
+
+
+{% block sidebar %}sidebar{% end %}
+ 
+{% block siteinfo %}
+          <div class="ui-box">
+            <div class="ui-box-container">siteinfo
+            </div>
+          </div>
+{% end %}

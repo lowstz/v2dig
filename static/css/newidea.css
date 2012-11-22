@@ -1,0 +1,62 @@
+.box {
+    background-color: #BFEFFF;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    border-bottom: 2px solid #fef8ee;
+    border-bottom: 2px solid #e2e2e9;
+}
+
+.mle {
+	border-radius: 3px;
+	padding: 5px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	display: block;
+	box-shadow: 0pt 1px 2px rgba(0, 0, 0, 0.18) inset;
+    font-family: "Panic Sans", "Menlo", "DejaVu Sans Mono", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+}
+
+.mle:focus {
+	border: 1px solid rgba(128, 128, 160, 0.6);
+	box-shadow: 0pt 1px 2px rgba(0, 0, 0, 0.18) inset, 0px 0px 5px rgba(128, 128, 160, 0.5);
+    outline: none;
+}
+
+.super.button {
+	background-image: url("/static/img/bg_blended.png");
+	padding: 4px 15px 4px 15px;
+	border: 1px solid rgba(80,80,90, 0.2);
+	border-bottom-color: rgba(80,80,90, 0.35);
+	border-radius: 3px;
+	font-size: 15px;
+	line-height: 12px;
+	outline: none;
+}
+.normal.button {
+	background-color: #f0f4f7;
+	color: #333;
+	text-shadow: 0px 1px 0px #fff;
+	text-decoration: none;
+	font-weight: bold;
+	box-shadow: 0px 1px 0px rgba(66, 66, 77, 0.25);
+}
+.normal.button:hover {
+	background-color: #fff;
+	color: #333;
+	text-shadow: 0px 1px 0px #fff;
+	text-decoration: none;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: 0px 1px 0px rgba(66, 66, 77, 0.2);
+}
+.normal.button:active {
+	background-color: #e2e2e2;
+	color: #333;
+	text-shadow: 0px 1px 0px #fff;
+	text-decoration: none;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: 0px 1px 0px rgba(66, 66, 77, 0.2);
+}

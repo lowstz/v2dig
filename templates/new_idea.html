@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static_url('css/newidea.css')}}" type="text/css" />
+{% end %}
+
+{% block content %}
+<div class="box">
+
+测试新的Idea!
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tbody>
+		<form action="" method="post" >
+			{% raw xsrf_form_html() %}
+			<tr>
+				<td><textarea class="mle" rows=5 cols=68 name="title" autofocus="autofocus"></textarea></td>
+			</tr>
+			<tr>
+				<td><textarea class="mle" rows=15 cols=68 name="content"></textarea></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="创 建" class="super normal button"></td>
+			</tr>
+		</form>
+	</tbody>
+</table>
+
+</div>
+
+{% end %}
