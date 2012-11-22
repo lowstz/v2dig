@@ -10,7 +10,9 @@ from hmac import HMAC
 from tornado.web import url
 import tornado.web
 import tornado.escape
+import time
 
+from lib import *
 from cache import cache
 
 username_validator = re.compile(r'^[a-zA-Z0-9]+$')
@@ -130,41 +132,45 @@ class RegisterHandler(LoginHandler):
             self.flash_message('This email is already registered', 'warn')
                 
                 
-                
 class IdeaHandler(BaseHandler):
     def get(self):
-        self.render("idea.html")
-        
+        import idea_lib
+        ceshi=self.db['user'].find_one({'username':'lowstz'})
+        self.render("idea.html",sb_text=idea_lib.Test(ceshi,'email'))
+#        self.render("idea.html",sb_text=ceshi['email'])
+        self.flash_message('Please fill the required fields', 'error')
+    def post(self):
+        tex1=self.get_argument("tef")
+        tex2=self.get_argument("tes")
+        self.render("topic.html",page_title=tex1,header_text=tex2)
+#        tl= self.db['user'].insert({ 'name': tex1,'blog':
+#                                    {"Time":time.time(),"e":tex2,}  })插入的尝试
+
+#        t=self.db['user'].update({'user':'sw78'},{"$push":{"comments":{"time":tex1,"xx":tex2}}})
+#插入评论
 
 # Toolkit
-def encrypt_password(password, salt=None):
-    """Hash password on the fly."""
-    if salt is None:
-        salt = os.urandom(8) # 64 bits.
-
-    assert 8 == len(salt)
-    assert isinstance(salt, str)
-
-    if isinstance(password, unicode):
-        password = password.encode('UTF-8')
-        
-    assert isinstance(password, str)
-
-    result = password
-    for i in xrange(10):
-        result = HMAC(result, salt, sha256).digest()
-
-    return salt + result
-
-def validate_password(hashed, input_password):
-    return hashed == encrypt_password(input_password, salt=hashed[:8])
-
+class NewIdeaHandler(BaseHandler):
+    def get(self):
+        self.render('new_idea.html')
+    def post(self):
+        import time
+        title=self.get_argument("title",None)
+        content=self.get_argument("content",None)
+        if not (title and content):
+#            self.flash_message('请输入标题和正文！', 'error')
+            self.render('new_idea.html')
+            return
+        self.db['Idea'].insert({'username':'csw','date':time.time(),'tag':'sbq','title':title,\
+                                'text':content, "click" : 0, "id" : 1, "comment" : ""})
+        self.redirect("/idea")
 
 # Handler
 handlers = [
     url(r'/', IndexHandler),
     url(r'/account/signin', LoginHandler),
     url(r'/idea',IdeaHandler),
+    url(r'/idea/new_idea',NewIdeaHandler)
     ]
 
         
