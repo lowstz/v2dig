@@ -196,11 +196,12 @@ class RegisterHandler(BaseHandler):
                 
 class IdeaHandler(BaseHandler):
     def get(self):
-        import idea_lib
+#        import idea_lib
+        ideas=self.db['Idea'].find().sort('date',-1).limit(9)
         ceshi=self.db['user'].find_one({'username':'lowstz'})
-        self.render("idea.html",sb_text=idea_lib.Test(ceshi,'email'))
-#        self.render("idea.html",sb_text=ceshi['email'])
-        self.flash_message('Please fill the required fields', 'error')
+#        self.render("idea.html",sb_text=idea_lib.Test(ceshi,'email')),sb_text=ceshi['email']
+        self.render("idea.html",ideas=ideas)
+#        self.flash_message('Please fill the required fields', 'error')
     def post(self):
         tex1=self.get_argument("tef")
         tex2=self.get_argument("tes")
@@ -214,7 +215,8 @@ class IdeaHandler(BaseHandler):
 # Toolkit
 class NewIdeaHandler(BaseHandler):
     def get(self):
-        self.render('new_idea.html')
+        abc=['a','b','c']
+        self.render('new_idea.html',sb_t=abc)
     def post(self):
         title=self.get_argument("title",None)
         content=self.get_argument("content",None)
@@ -222,9 +224,13 @@ class NewIdeaHandler(BaseHandler):
 #            self.flash_message('请输入标题和正文！', 'error')
             self.render('new_idea.html')
             return
-        self.db['Idea'].insert({'username':'csw','date':time.time(),'tag':'sbq','title':title,\
+        self.db['Idea'].insert({'username':self.get_current_user(),'date':time.time(),'tag':'sbq','title':title,\
                                 'text':content, "click" : 0, "id" : 1, "comment" : ""})
         self.redirect("/idea")
+
+class TextIdeaHanler(BaseHandler):
+    def get(self, iid=None):
+        self.render('text_idea.html',iid=iid)
 
 class SignoutHandler(BaseHandler):
     def get(self):
@@ -257,6 +263,7 @@ handlers = [
     url(r'/account/signin', LoginHandler),
     url(r'/idea',IdeaHandler),
     url(r'/idea/new_idea',NewIdeaHandler),
+    url(r'/idea/(\w+)',TextIdeaHanler),
     url(r'/account/signout', SignoutHandler),
 ]
 

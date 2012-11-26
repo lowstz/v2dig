@@ -8,16 +8,18 @@
 <div class="box">
 
 测试新的Idea!
-
+{% for i in range(len(sb_t)) %}
+{{ sb_t[i] }}
+{% end %}
 <table cellpadding="5" cellspacing="0" border="0" width="100%">
 	<tbody>
 		<form action="" method="post" >
 			{% raw xsrf_form_html() %}
 			<tr>
-				<td><textarea class="mle" rows=5 cols=68 name="title" autofocus="autofocus"></textarea></td>
+				<td><textarea class="mle" rows=5 cols=68 name="title" autofocus="autofocus" required></textarea></td>
 			</tr>
 			<tr>
-				<td><textarea class="mle" rows=15 cols=68 name="content"></textarea></td>
+				<td><textarea class="mle" rows=15 cols=68 name="content" required></textarea></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="创 建" class="super normal button"></td>
