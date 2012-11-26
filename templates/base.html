@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{% end %}{{handler.settings['forum_title'] }}</title>
+    <title>{% block title %}{% block subtitle %}{% end %}{{handler.settings['forum_title'] }}{%end%}</title>
     <link rel="stylesheet" href="{{ static_url('css/style.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{ static_url('css/fontello/css/fontello.css')}}" type="text/css" />
     
@@ -16,10 +16,11 @@
         <h1><a href="/">{{ handler.settings['forum_title']}}</a></h1>
         <div class="user-box fn-clear">
           <div class="user">
+            {% if current_user %}
             <span class="icon-user-1"></span>
+            <a href="/member/{{ current_user }}">{{ current_user}}</a>
           </div>
           <nav class="user-links">
-            {% if current_user %}
             <a href="/topic/create" original-title="创建主题"><span class="icon-edit"></span></a>
             <a href="/account/setting" original-title="设置"><span class="icon-cog"></span></a>
             <a href="/account/signout" original-title="登出"><span class="icon-logout"></span></a>
@@ -35,7 +36,18 @@
       <a href="/wiki">{{ _("Wiki") }}</a>
     </nav>
     </div>
+<<<<<<< HEAD
    
+=======
+    {% set messages = handler.get_flashed_messages() %}
+    {% if messages %}
+    {% for category, msg in messages %}
+    <div class="alert alert-{{category}}">
+      {{ msg }}
+    </div>
+    {% end %}
+    {% end %}   
+>>>>>>> v2dig/master
     <div id="main">
       <div class="wrapper fn-clear">
         {% block main %}
@@ -43,7 +55,7 @@
           {% block content %}{% end %}
         </div>
         <div id="sidebar">
-        {% block sidebar %}{% end %}
+          {% block sidebar %}{% end %}
         </div>
         {% end %}
       </div>

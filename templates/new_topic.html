@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block subtitle %}{{ _("Create Topic | ") }}{% end %}
+
+{% block content %}
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h3>选择一个节点</h3>
+  </div>
+  <div class="ui-box-container nodes">
+    {% for node in nodes %}
+    <a class="node" href="/node/{{ node['node_name'] }}/create" 
+       style=" background-color:#F1F1F1; color:#006FA4; ">{{ node['node_title'] }}</a>
+    {% end %}
+`</div>
+</div>
+
+<div id="markdown-syntax" class="ui-box">
+  <div class="ui-box-header fn-clear">
+    <h4>Markdown 语法</h4>
+  </div>
+  <div class="ui-box-container">
+    <h5>Emphasize and Strong</h5>
+    <pre>
+*emphasize*     **strong**
+_emphasize_     __strong__ </pre>
+
+    <h5>Link and Image</h5>
+    <pre>
+[link](http://url.com)
+[link](http://url.com "Title")
+
+![alt text](/path/to/img.jpg)</pre>
+
+    <h5>List</h5>
+    <pre>
+1. Foo
+2. Bar</pre>
+    <pre>
+* Foo
+* Bar </pre>
+
+    <h5>Code Block</h5>
+    <pre>
+```python
+def hello():
+return True
+``` </pre>
+
+  </div>
+</div>
+{% end %}
+
+{% block sidebar %}
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h4>Feedback</h4>
+  </div>
+  <div class="ui-box-container">
+    <p>找不到合适的节点？</p>
+    <p>或者哪个地方出错了？</p>
+  </div>
+  <div class="ui-box-footer">
+    <a href="#" class="ui-btn">Feedback</a>
+  </div>
+</div>
+{% end %}
