@@ -15,7 +15,6 @@ define('settings', default=os.path.join(ROOT, 'settings.py'),
        help='path to the settings file.', type=str)
 
 from database import *
-import ui_methods
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -26,7 +25,6 @@ class Application(tornado.web.Application):
             xsrf_cookies=True,
             cookie_secret="g1VaSuEUQPeZ3o7tNw+kQN1FVP49qUezrDhWQjaLREA=",
             ui_modules=ui_modules,
-            ui_methods=ui_methods,
             debug=True,
             )
         execfile(options.settings, {}, settings)
