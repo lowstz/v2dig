@@ -20,7 +20,7 @@ This topic is in: <a href="/node/{{ node['node_name'] }}" >{{ node['node_name'] 
 <form action="" method="post" class="ui-box-container">
   {% raw xsrf_form_html() %}
   <div class="fm-item fm-require">
-    <input type="text" class="fm-text" size="100" name="title" placeholder="Title" required>
+    <input type="text" class="fm-text" size="60" name="title" placeholder="Title" required>
   </div>
   <div id="editor" class="fm-item">
     <textarea name="content_md" class="fm-text"  required></textarea>

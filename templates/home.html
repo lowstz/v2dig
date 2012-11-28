@@ -28,7 +28,7 @@
 {% if page['page_number'] > 1 %}
     {% for i in page['pagelist'] %}
     {% if i == int(page['current_page']) %}
-    <span href="?page={{i}}">{{i}}</span>
+    <span href="?p={{i}}">{{i}}</span>
     {% else %}
     <a href="?p={{i}}">{{i}}</a>
     {% end %}

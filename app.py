@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pymongo
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web

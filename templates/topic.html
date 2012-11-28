@@ -1,1 +1,64 @@
 {% extends "base.html" %}
+
+{% block subtitle %}{{ topic['title'] }} | {% end %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static_url('css/pygments-style.css')}}" type="text/css" />
+{% end %}
+
+{% block content %}
+<article class="hentry ui-box" data-id="{{ topic['tid'] }}">
+  <div class="ui-box-header fn-clear">
+    <h3 class="entry-title"><a href="/topic/{{ topic['tid'] }}">{{ topic['title'] }}</a></h3>
+  </div>
+  <div class="ui-box-container entry-content">
+    {% raw topic['content_html'] %}
+  </div>
+  <div class="ui-box-footer fn-clear">
+    <div class="entry-meta">
+      创建时间: {{ handler.format_time(topic['create_time']) }}
+    </div>
+  </div>
+</article>
+
+{% end %}
+
+{% block sidebar %}
+{% set author = handler.get_member(topic['author']) %}
+<div class="ui-box widget-user">
+  <div class="ui-box-header primary fn-clear">
+    <a href="/member/{{ author['username']}}" class="ui-avatar">
+      <img src="{{ handler.get_avatar(author['email']) }}" width='48' height='48'>
+    </a>
+    <div class="user fn-wrap">
+      <div class="username">
+        <strong>{{ author['username'] }}</strong>
+      </div>
+      <div class="website">
+        <a href="{{ author['website'] }}" rel="nofollow" target="_blank">{{ author['website']}}</a>
+      </div>
+  </div>
+ </div>
+  <div class="ui-box-footer">
+    <a href="/member/{{ author['username'] }}" class="ui-btn">View Profile</a>
+  </div>
+</div>
+
+<div class="widget-node ui-box">
+<div class="ui-box-header" style="
+background-color:#F1F1F1;
+color:#9FD4DD;
+
+">
+{% set node = handler.get_node(topic['node']) %}
+<h4>{{ node["node_title"] }}</h4>
+</div>
+<div class="ui-box-container">
+  {{ node["description"]}}
+</div>
+<div class="ui-box-footer">
+<a href="/node/{{ node['node_name'] }}" class="ui-btn">View</a>
+<a href="/node/{{ node['node_name'] }}/create" class="ui-btn" rel="nofollow">Create</a>
+</div>
+</div>
+{% end %}

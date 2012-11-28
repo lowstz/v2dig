@@ -9,7 +9,6 @@ username_validator = re.compile(r'^[a-zA-Z0-9]+$')
 email_validator = re.compile(r'^.+@[^.].*\.[a-z]{2,10}$', re.IGNORECASE)
 
 
-
 def encrypt_password(password):
     """Hash password on the fly."""
     m = hashlib.md5()

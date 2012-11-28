@@ -47,13 +47,19 @@ class BaseHandler(tornado.web.RequestHandler):
             raise tornado.web.HTTPError(404)
         return member
 
+    def get_node(self, node_name):
+        node = self.db.node.find_one({'node_name': node_name})
+        if not node:
+            raise tornado.web.HTTPError(404)
+        return node
+        
     def get_avatar(self, email, size=48):
         md5email = hashlib.md5(email).hexdigest()
         query = "%s?s=%s" % (md5email, size)
         return 'http://cn.gravatar.com/avatar/' + query
 
     def format_time(self, unixtime):
-        t = time.gmtime(unixtime)
+        t = time.localtime(unixtime)
         formated_time = time.strftime('%Y-%m-%d %H:%M:%S', t)
         return formated_time
 
@@ -86,6 +92,7 @@ class SignoutHandler(BaseHandler):
         self.clear_cookie("user")
         self.flash("骚年，已经登出帐号", "info")
         self.redirect(u'/')
+        return
         
 class RegisterHandler(BaseHandler):
     def get(self):
@@ -101,14 +108,17 @@ class RegisterHandler(BaseHandler):
         if not (username and email and password and repeat_password):
             self.flash('Please fill the require fields', 'error')
             self.redirect(u"/account/signup")
+            return
         
         if password != repeat_password:
             self.flash("Password doesn't match", 'error')
             self.redirect(u"/account/signup")
+            return
         
         if username and not username_validator.match(username):
             self.flash('Username is invalid', 'error')
             self.redirect(u"/account/signup")
+            return
         
         if email and not email_validator.match(email):
             self.flash('Not a valid email address', 'error')
@@ -117,15 +127,17 @@ class RegisterHandler(BaseHandler):
         if username and self.db.user.find_one({'username': username}):
             self.flash('This username is already registered', 'error')
             self.redirect(u"/account/signup")
+            return
         
         if email and self.db.user.find_one({'email' : email}):
             self.flash('This email is already registered', 'error')
             self.redirect(u"/account/signup")
-        
+            return
         
         hashed_password = encrypt_password(password)
         uid = self.db.auto_inc.find_and_modify(
-            update={"$inc": {"user_id":1}},
+            update={"$inc":{"user_id":1}},
+            query={"name":"user_id"},
             new=True
             ).get("user_id")
             
@@ -135,6 +147,7 @@ class RegisterHandler(BaseHandler):
             "email": email,
             "registered_time": time.time(),
             "uid": uid,
+            'role': 1,
             "description": "",
             "website": "",
             "last_accesse_time": time.time(),
@@ -152,13 +165,10 @@ class TopicListHandler(BaseHandler, PageMixin):
     def get(self):
         topics = self.db.topic.find(sort=[('last_reply_time', -1)])
         p = self._get_page()
-        page = self._get_pagination(topics, perpage=3)
+        page = self._get_pagination(topics, perpage=12)
         
         self.render("home.html", topics=topics,
                     page=page, p=p)
-
-
-
         
 
 class NewTopicHandler(BaseHandler):
@@ -190,6 +200,7 @@ class CreateTopicHandler(BaseHandler):
 
         tid = self.db.auto_inc.find_and_modify(
             update={"$inc": {"topic_id":1}},
+            query={"name":"topic_id"},
             new=True
             ).get("topic_id")
 
@@ -212,10 +223,12 @@ class CreateTopicHandler(BaseHandler):
 
 class TopicHandler(BaseHandler):
     def get(self, topic_id):
+        topic = self.db.topic.find_one({"tid": int(topic_id)})
+        self.render("topic.html", topic=topic)
+
+class ReplyHandler(BaseHandler):
+    def get(self, topic_id):
         pass
-
-
-        
         
 # Handler
 handlers = [
@@ -224,6 +237,7 @@ handlers = [
     (r'/account/signin', SigninHandler),
     (r'/account/signout', SignoutHandler),
     (r'/topic/create', NewTopicHandler),
+    (r'/topic/(\d+)', TopicHandler),
     (r'/node/(\w+)/create', CreateTopicHandler),
     ]
 
