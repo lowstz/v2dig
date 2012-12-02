@@ -1,0 +1,5 @@
+Markdown==2.2.1
+Pygments==1.5
+pymongo==2.3
+tornado==2.4
+wsgiref==0.1.2
