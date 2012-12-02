@@ -52,6 +52,16 @@
         </div>
         <div id="sidebar">
           {% block sidebar %}{% end %}
+          <div class="ui-box">
+            <div class="ui-box-container">
+              <ul>
+    <li>{{ _("Node") }}: {{ handler.db.node.find().count() }}</li>
+    <li>{{ _("Topic") }}: {{ handler.db.topic.find().count() }}</li>
+    <li>{{ _("Reply") }}: {{ handler.db.reply.find().count() }}</li>
+    <li>{{ _("Member") }}: {{ handler.db.user.find().count() }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
         {% end %}
       </div>
@@ -60,6 +70,10 @@
     <footer id="footer">
       <div class="wrapper">
         <p>Copyright &copy; {{handler.settings['forum_title']}}. All articles &copy; their respective owners.</p>
+      <p class="copyright">
+        Theme Design By <a href="http://lepture.com/">lepture</a>. Powered by v2dig
+      </p>
+      </div>
       </div>
     </footer>
   <body>

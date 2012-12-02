@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block subtitle %}{{ _("Account") }} | {% end %}
+
+{% block content %}
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h3>编辑个人设置</h3>
+  </div>
+    <form action="" method="post" class="ui-box-container">
+      {% raw xsrf_form_html() %}
+      <div class="fm-item fm-required">
+        <label class="fm-label" for="username">用户名</label>
+        <a href="/member/{{ user['username'] }}">{{ user['username'] }}</a>
+      </div>
+      <div class="fm-item">
+        <label class="fm-label" for="website">个人主页</label>
+        <input type="url" class="fm-text" name="website" value="{{ user['website'] }}">
+      </div>
+      <div class="fm-item">
+        <label class="fm-label" for="description">个人描述</label>
+        <textarea class="fm-text" name="description">{{ user['description'] }}</textarea>
+      </div>
+      <div class="fm-item">
+        <button class="ui-btn">Save</button>
+      </div>
+    </form>
+</div>
+{% end %}
+{% block sidebar %}
+<div class="ui-box">
+<div class="ui-box-header warn">
+<h4>修改密码</h4>
+</div>
+<div class="ui-box-container">
+<p>如果忘记密码了，可以使用 <strong>找回密码</strong>.</p>
+</div>
+<div class="ui-box-footer">
+<a href="/account/password" class="ui-btn">修改密码</a>
+</div>
+</div>
+{% end %}

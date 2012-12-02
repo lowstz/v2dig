@@ -14,6 +14,7 @@ define('settings', default=os.path.join(ROOT, 'settings.py'),
        help='path to the settings file.', type=str)
 
 from database import *
+from settings import *
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -22,7 +23,7 @@ class Application(tornado.web.Application):
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies=True,
-            cookie_secret="g1VaSuEUQPeZ3o7tNw+kQN1FVP49qUezrDhWQjaLREA=",
+            cookie_secret=cookie_secret,
             ui_modules=ui_modules,
             debug=True,
             )

@@ -25,7 +25,7 @@
   </div>
   {% end %}
   <div class="ui-box-footer pagination">
-{% if page['page_number'] > 1 %}
+    {% if page['page_number'] > 1 %}
     {% for i in page['pagelist'] %}
     {% if i == int(page['current_page']) %}
     <span href="?p={{i}}">{{i}}</span>
