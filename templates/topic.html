@@ -26,6 +26,9 @@ height: 100px;
     <div class="entry-meta">
       创建时间: {{ handler.format_time(topic['create_time']) }}
     </div>
+    {% if handler.get_current_user() == topic['author'] %}
+    <div style="text-align: right;"><a href="/topic/{{ topic['tid'] }}/edit" title="编辑此主题">编辑</a></div>
+    {% end %}
   </div>
 </article>
 

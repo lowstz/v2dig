@@ -68,8 +68,9 @@ class CreateTopicHandler(BaseHandler):
 class TopicHandler(BaseHandler):
     def get(self, topic_id):
         topic = self.db.topic.find_one({"tid": int(topic_id)})
-        replies = self.db.reply.find({"tid": int(topic_id)}, sort=[('last_reply_time', -1)])
-        
+
+        replies = self.db.reply.find({"tid": int(topic_id)}, 
+                                     sort=[('last_reply_time', -1)])
         self.render("topic.html", topic=topic, replies=replies)
 
     def post(self, topic_id):
@@ -99,6 +100,27 @@ class TopicHandler(BaseHandler):
         url = "/topic/" + topic_id
         self.redirect(url)
 
+class TopicEditHandler(BaseHandler):
+    def get(self, topic_id):
+        topic = self.db.topic.find_one({'tid': int(topic_id)})
+        if self.get_current_user() == topic['author']:
+            self.render('edit_topic.html', topic=topic)
+        else:
+            url = '/topic/' + topic_id
+            self.redirect(url)
+
+    def post(self, topic_id):
+        title = self.get_argument('title', None)
+        content_md = self.get_argument('content_md', None)
+
+        url = '/topic/' + topic_id
+        if not (title and content_md):
+            self.flash('里面啥都没有提交个屁啊', 'error')
+            self.render('edit_topic.html', topic=topic)
+
+        self.db.topic.update({'tid':int(topic_id)}, {"$set": {"title": title, "content_md": content_md, "content_html": md_to_html(content_md) }})
+        self.redirect(url)
+
 class TopicListModule(tornado.web.UIModule):
     def render(self, topics):
         return self.render_string("module/topic_list.html", topics=topics)
@@ -120,6 +142,7 @@ handlers = [
     (r'/', TopicListHandler),
     (r'/topic/create', NewTopicHandler),
     (r'/topic/(\d+)', TopicHandler),
+    (r'/topic/(\d+)/edit', TopicEditHandler),
     (r'/node/(\w+)/create', CreateTopicHandler),
     ]
 
