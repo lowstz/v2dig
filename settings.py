@@ -14,4 +14,3 @@ gravatar_base_url = 'http://cn.gravatar.com/avatar/'
 google_analytics = ''
 cookie_secret = 'hey reset me!'
 
-default_locale = 'zh_CN'
