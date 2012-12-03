@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block subtitle %}Member > {{ member['username'] }} | {% end %}
+
+{% block content %}
+
+<div class="ui-box widget-profile">
+<div class="ui-box-header primary fn-clear">
+<a href="/member/{{ member['username'] }}" class="ui-avatar">
+<img src="{{ handler.get_avatar(member['email']) }}" width="48" height="48"></a>
+<div class="user fn-wrap">
+<div class="username"><strong>{{ member['username'] }}</strong></div>
+
+<div class="website"><a href="{{ member['website'] }}" rel="nofollow" target="_blank">{{ member['website'] }}</a></div>
+</div>
+</div>
+
+<div class="ui-box-container fn-clear">
+{{ member['description'] }}
+</div>
+
+<div class="ui-box-footer">
+<span>{{ handler.format_time(member['registered_time']) }}</span>
+</div>
+</div>
+
+<div class="ui-box">
+<div class="ui-box-header">
+<h3>Topics</h3>
+</div>
+{% module TopicListModule(topics) %}
+</div>
+
+<div class="ui-box">
+<div class="ui-box-header">
+<h3>Replies</h3>
+</div>
+{% module MemberPageReplyListModule(replies) %}
+</div>
+
+{% end %}

@@ -28,29 +28,12 @@ height: 100px;
     </div>
   </div>
 </article>
-<!-- Reply List -->
+
 <div class="replies ui-box">
   <div class="ui-box-header">
     Last_reply at <time datetime="{{ handler.format_time(topic['last_reply_time']) }}">{{ handler.format_time(topic['last_reply_time']) }}</time> | {{ topic['reply_count'] }} replies
   </div>
-  {% set index = 1 %}
-  {% for reply in replies %}
-  {% set reply_author = handler.get_member(reply['author']) %}
-  <div id="reply-{{ index }}" class="ui-cell reply fn-clear">
-    <a href="/member/{{ reply['author'] }}" class="ui-avatar"><img src="{{ handler.get_avatar(reply_author['email']) }}" width="48", height="48"></a>
-    <div class="reply-content fn-wrap">
-      <div class="reply-meta">
-        <a href="/member/{{ reply['author'] }}">{{ reply['author'] }}</a>
-        reply at <time datetime="{{ handler.format_time(reply['create_time']) }}">{{ handler.format_time(reply['create_time']) }}</time>
-         #{{index}}
-      </div>
-      <div class="content">
-        {% raw reply['content_html'] %}
-      </div>
-    </div>
-  </div>
-{% set index += 1 %}
-{% end %}
+  {% module ReplyListModule(replies) %}
 </div>
 
 <!-- Reply Editor -->
@@ -90,11 +73,7 @@ height: 100px;
 </div>
 
 <div class="widget-node ui-box">
-<div class="ui-box-header" style="
-background-color:#F1F1F1;
-color:#9FD4DD;
-
-">
+<div class="ui-box-header" style=" background-color:#F9F0A8; color:#B52218; ">
 {% set node = handler.get_node(topic['node']) %}
 <h4>{{ node["node_title"] }}</h4>
 </div>

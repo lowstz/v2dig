@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block subtitle %}{{ node['node_title'] }} | {% end %}
+
+{% block content %}
+<div class="ui-box">
+  <div class="ui-box-header">
+    <a href="/">V2dig </a>  » {{ node['node_title'] }}
+  </div>
+  {% module TopicListModule(topics) %}
+  {% module PaginatorModule(page, p) %}
+</div>
+{% end %}
+
+{% block sidebar %}
+<div class="widget-node ui-box">
+  <div class="ui-box-header" style=" background-color:#F9F0A8; color:#B52218; ">
+    <h4>{{ node["node_title"] }}</h4>
+  </div>
+  <div class="ui-box-container">
+    {{ node["description"]}}
+  </div>
+  <div class="ui-box-footer">
+    <a href="/node/{{ node['node_name'] }}" class="ui-btn">View</a>
+    <a href="/node/{{ node['node_name'] }}/create" class="ui-btn" rel="nofollow">Create</a>
+  </div>
+</div>
+{% end %}

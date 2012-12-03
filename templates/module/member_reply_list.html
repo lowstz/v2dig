@@ -1,0 +1,5 @@
+{% for reply in replies %}
+<div class="ui-cell">
+<a href="/topic/{{ reply['tid'] }}">{% raw reply['content_html'] %}</a>
+</div>
+{% end %}

@@ -1,0 +1,10 @@
+<div class="ui-box">
+  <div class="ui-box-container">
+    <ul>
+      <li>{{ _("Node") }}: {{ handler.db.node.find().count() }}</li>
+      <li>{{ _("Topic") }}: {{ handler.db.topic.find().count() }}</li>
+      <li>{{ _("Reply") }}: {{ handler.db.reply.find().count() }}</li>
+      <li>{{ _("Member") }}: {{ handler.db.user.find().count() }}</li>
+    </ul>
+  </div>
+</div>
