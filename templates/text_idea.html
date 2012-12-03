@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ static_url('css/textidea.css')}}" type="text/css" />
+	<link rel="stylesheet" href="{{ static_url('css/pygments-style.css')}}" type="text/css" />
+	<script language="javascript">
+　　function Comment_click(){
+		document.getElementById('cs_comment').className="input";
+　　}
+	function Comment_no(){
+		document.getElementById('cs_comment').className="input small";
+　　}
+</script>
+{% end %}
+
+{% block content %}
+<div id="mn-body">
+<div class="clearfix" id="mn-body-block">
+
+	<div class="golden" id="mn-r">
+		<div class="fix_inner">
+		
+			<div class="pnl-text" id="right_tab_panel">
+				
+				<div class="tabs">
+					<div class="tab curr">
+						<img alt="评论" src="/static/img/comments.png">
+						<span class="w">评 论</span>
+					</div>
+					<div class="tab interests">
+						<span class="w">待定</span>
+					</div>
+					<div class="tab">
+						<span class="w">待定</span>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="slides resizable" style="min-height: 300px; ">
+					<div class="slide_container" style="left: 0px; ">
+						<div class="slide comments" id="idea-comments" style="height: 189px; ">
+							<div class="pnl-head comment_right_panel">
+								<div class="input small" id="cs_comment">
+									<form accept-charset="UTF-8" action="" class="new_comment" id="new_comment" method="post">
+										{% raw xsrf_form_html() %}
+										<div class="comment-body-field">
+											<div class="action">
+												<input class="btn" name="commit" type="submit" value="发送Send" >
+												<div class="send_shortcut_hint">( Ctrl+Enter )</div>
+											</div>
+											<textarea class="comment-body" cols="22" name="content" rows="3" onclick="Comment_click()" onblur="Comment_no()"></textarea>
+										</div><input type="submit" value="发送" >
+									</form>
+								
+								</div>
+								
+							</div>
+							<div class="comment_lists" } >
+								<dl class="comment_list">
+									<dt>Coffee</dt>
+									<dd>Black hot drinkBlack hot drinkBlack hot drink</dd>
+								</dl>
+								<dl class="comment_list">
+									<dt>Milk</dt>
+									<dd>神码 ^_^o(∩∩)o...哈哈 就这样神码 ^_^o(∩∩)o...哈哈 就这样神码 ^_^o(∩∩)o...哈哈 就这样神码 ^_^o(∩∩)o...哈哈 就这样k</dd>
+								</dl>
+								<dl class="comment_list">
+									<dt>Coffee</dt>
+									<dd>Black hot drinkBlack hot drinkBlack hot drink</dd>
+								</dl>
+								<dl class="comment_list">
+									<dt>Milk</dt>
+									<dd>White cold drink</dd>
+								</dl>
+								<dl class="comment_list">
+									<dt>Coffee</dt>
+									<dd>Black hot drinkBlack hot drinkBlack hot drink</dd>
+								</dl>
+								<dl class="comment_list">
+									<dt>Milk</dt>
+									<dd>White cold drink</dd>
+								</dl>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="golden idea-desc" id="mn-l">
+		<div class="pnl-text resizable" style="min-height: 257px; ">
+			<a href="#"></a>
+			<div class="pnl-head">
+				<div id="idea-caption">
+					<img alt="图像名（替代时）" class="peop avatar" src="/static/img/missing.png" title="操蛋的图片名">
+					<div class="right">
+						<div class="title">
+							<h1>标题{{ idea['title'] }}</h1>
+						</div>
+						<div class="user">
+							<a href="/users/linjunhalida" data-pjax="#mn-body-block">{{ idea['author'] }}</a>
+							<abbr class="timeago ok" >{{ handler.format_time(idea['date']) }}</abbr>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="detail">
+				神码
+				{% raw idea['text'] %}
+			</div>
+			<div class="pnl-foot">
+				<div class="pnl-foot-inner">
+					<div class="foot-tags">
+						<span class="tags-lb">Tag: </span>标签
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+</div>
+
+{% end %}

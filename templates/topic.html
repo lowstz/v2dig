@@ -1,2 +1,109 @@
 {% extends "base.html" %}
 
+{% block subtitle %}{{ topic['title'] }} | {% end %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static_url('css/pygments-style.css')}}" type="text/css" />
+<style type="text/css">
+#editor textarea {
+width: 97%;
+height: 100px;
+}
+</style>
+{% end %}
+
+{% block content %}
+{% set author = handler.get_member(topic['author']) %}
+
+<article class="hentry ui-box" data-id="{{ topic['tid'] }}">
+  <div class="ui-box-header fn-clear">
+    <h3 class="entry-title"><a href="/topic/{{ topic['tid'] }}">{{ topic['title'] }}</a></h3>
+  </div>
+  <div class="ui-box-container entry-content">
+    {% raw topic['content_html'] %}
+  </div>
+  <div class="ui-box-footer fn-clear">
+    <div class="entry-meta">
+      创建时间: {{ handler.format_time(topic['create_time']) }}
+    </div>
+  </div>
+</article>
+<!-- Reply List -->
+<div class="replies ui-box">
+  <div class="ui-box-header">
+    Last_reply at <time datetime="{{ handler.format_time(topic['last_reply_time']) }}">{{ handler.format_time(topic['last_reply_time']) }}</time> | {{ topic['reply_count'] }} replies
+  </div>
+  {% set index = 1 %}
+  {% for reply in replies %}
+  {% set reply_author = handler.get_member(reply['author']) %}
+  <div id="reply-{{ index }}" class="ui-cell reply fn-clear">
+    <a href="/member/{{ reply['author'] }}" class="ui-avatar"><img src="{{ handler.get_avatar(reply_author['email']) }}" width="48", height="48"></a>
+    <div class="reply-content fn-wrap">
+      <div class="reply-meta">
+        <a href="/member/{{ reply['author'] }}">{{ reply['author'] }}</a>
+        reply at <time datetime="{{ handler.format_time(reply['create_time']) }}">{{ handler.format_time(reply['create_time']) }}</time>
+         #{{index}}
+      </div>
+      <div class="content">
+        {% raw reply['content_html'] %}
+      </div>
+    </div>
+  </div>
+{% set index += 1 %}
+{% end %}
+</div>
+
+<!-- Reply Editor -->
+{% if current_user %}
+<div class="ui-box">
+  <form action="/topic/{{ topic['tid'] }}" class="ui-box-container" method="post">
+    {% raw xsrf_form_html() %}
+    <div id="editor">
+      <div class="fm-item">
+        <textarea name="content_md" class="fm-text" require></textarea>
+      </div>
+      <button type="submit" class="ui-btn">Post</button>
+    </div>
+  </form>
+</div>
+{% end %}
+{% end %}
+
+{% block sidebar %}
+<div class="ui-box widget-user">
+  <div class="ui-box-header primary fn-clear">
+    <a href="/member/{{ author['username']}}" class="ui-avatar">
+      <img src="{{ handler.get_avatar(author['email']) }}" width='48' height='48'>
+    </a>
+    <div class="user fn-wrap">
+      <div class="username">
+        <strong>{{ author['username'] }}</strong>
+      </div>
+      <div class="website">
+        <a href="{{ author['website'] }}" rel="nofollow" target="_blank">{{ author['website']}}</a>
+      </div>
+  </div>
+ </div>
+  <div class="ui-box-footer">
+    <a href="/member/{{ author['username'] }}" class="ui-btn">View Profile</a>
+  </div>
+</div>
+
+<div class="widget-node ui-box">
+<div class="ui-box-header" style="
+background-color:#F1F1F1;
+color:#9FD4DD;
+
+">
+{% set node = handler.get_node(topic['node']) %}
+<h4>{{ node["node_title"] }}</h4>
+</div>
+<div class="ui-box-container">
+  {{ node["description"]}}
+</div>
+<div class="ui-box-footer">
+<a href="/node/{{ node['node_name'] }}" class="ui-btn">View</a>
+<a href="/node/{{ node['node_name'] }}/create" class="ui-btn" rel="nofollow">Create</a>
+</div>
+</div>
+{% end %}

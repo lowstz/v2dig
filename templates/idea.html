@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}
-Idea	--
+{% block subtitle %}
+Idea -
 {% end %}
 {% block head %}
 <link rel="stylesheet" href="{{ static_url('css/idea.css')}}" type="text/css" />
 {% end %}
 {% block content %}
-测试测试测试<a href="/idea/new_idea" class="ui-btn">创建新Idea</a>
+<a href="/idea/new_idea" class="ui-btn">创建新Idea</a>
 
 
 <div id='mn-body'>
@@ -23,54 +23,26 @@ Idea	--
 <div class="index-idea" ">
 	<div class="head">
 		<a href="/idea" ><img alt="图像名（替代时）" class="peop avatar delay-img" src="/static/img/missing.png" title="操蛋的图片名"></a>
-		<div class="middle">
-			<h2 class="title"><a href="/idea/{{ idea['_id'] }}" >idea标题{{ idea['title'] }}</a></h2>
+		<div class="middle"> 
+			<h2 class="title"><a href="/idea/{{ idea['iid'] }}" >{{ idea['title'] }}</a></h2>
 			<div class="user">
-				<a href="/users/linjunhalida" >用户名{{ idea['username'] }}</a>
+				<a href="/users/链接用户" >{{ idea['author'] }}</a>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<div class="desc">帖子内容。。。{{ idea['text'] }}</div>
+	<div class="desc">{{ idea['text'] }}</div>
 	<img alt="New_zh-cn(替代时)" class="new_item" src="/static/img/new_zh-cn.png">
 	<div class="info">
-		<div class="label idea"><a href="/idea/{{ idea['id'] }}" title="剩余小时"><img alt="高速上升" class="status" onmouseout="this.src='/static/img/climbing-0.png'" onmouseover="this.src='/static/img/climbing-1.png'" src="/static/img/climbing-0.png" title="高速上升"></a></div>
+		<div class="label idea"><a href="/idea/{{ idea['iid'] }}" title="剩余小时">
+			<img alt="评论数" class="status" onmouseout="this.src='/static/img/climbing-0.png'" onmouseover="this.src='/static/img/climbing-1.png'" src="/static/img/climbing-0.png" title="评论数"></a>
+		</div><div class="label num">评论数</div>
 		<div class="label num">{{ idea['click'] }}</div>
-		<div class="label num">{{ idea['date'] }}</div>
-		<div class="label num">留言数</div>
+		<div class="label num">{{ handler.format_time(idea['date']) }}</div>
 	</div>
 </div>
 
 {% end %}
-
-
-
-<div class="index-idea" data-created_at="2012-04-12 05:30:46">
-	<div class="head">
-		<a href="/users/linjunhalida" data-pjax="#mn-body-block"><img alt="linjunhalida" class="peop avatar delay-img" source="/uploads/image/image/444/c608737f-2036-48ab-9996-87c627566e11.jpg" src="/uploads/image/image/444/c608737f-2036-48ab-9996-87c627566e11.jpg" title="linjunhalida"></a>
-		<div class="middle">
-			<h2 class="title"><a href="/ideas/1" data-pjax="#mn-body-block">lplp112011016</a></h2>
-			<div class="user">
-				<a href="/users/linjunhalida" alt="Score: 5756" data-pjax="#mn-body-block" title="Score: 5756"><img alt="S" class="gd_level sprite ranks_7" src="http://cdn2.gurudigger.us/assets/s-33d64856f745e302c83c4c37fa0a1f09.gif"></a><a href="/users/linjunhalida" data-pjax="#mn-body-block">用户名</a>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-	<div class="desc">大家好，我是古，我也是伏羲，等等，都是我啦，哈哈。
-	天才
-	笨蛋
-	都不属于你，你是猪头！</div>
-	<img alt="New_zh-cn" class="new_item unchecked" src="http://cdn3.gurudigger.us/assets/new_zh-cn-d3823c84cd9618ef1bd0ca8093dc1d67.png">
-	<div class="info">
-		<div class="label idea"><a href="/ideas/1" data-pjax="#mn-body-block" title="剩余小时"><img alt="高速上升" class="status" onmouseout="this.src='http://cdn0.gurudigger.us/assets/ideas_index_balloon/climbing-a004a8cb2c081b27f830f0e2b8c4a51e.png'" onmouseover="this.src='http://cdn2.gurudigger.us/assets/ideas_index_balloon/climbing_rollover-4695eb30083b53d0e6f62b013b33cf81.png'" src="http://cdn0.gurudigger.us/assets/ideas_index_balloon/climbing-a004a8cb2c081b27f830f0e2b8c4a51e.png" title="高速上升"></a></div>
-		<div class="label num">未知</div>
-		<div class="label"><a href="/ideas/1" data-pjax="#mn-body-block" title="感兴趣"><img alt="S" class="sprite icons_member spriteover" spriteover="icons_member_rollover" src="http://cdn2.gurudigger.us/assets/s-33d64856f745e302c83c4c37fa0a1f09.gif"></a></div>
-		<div class="label num">感兴趣数</div>
-		<div class="label"><a href="/ideas/1" data-pjax="#mn-body-block" title="留言"><img alt="S" class="sprite icons_comment spriteover" spriteover="icons_comment_rollover" src="http://cdn2.gurudigger.us/assets/s-33d64856f745e302c83c4c37fa0a1f09.gif"></a></div>
-		<div class="label num">留言数</div>
-	</div>
-</div>
-
 
 
 
@@ -85,39 +57,4 @@ Idea	--
 <br>
 </div></div>
 测试结束
-{% end %}
-
-
-
-{% block sidebar %}
-
-<div class="ui-box">
-  <div class="ui-box-header">
-    <h4>{{ _("搜索") }}</h4>
-  </div>
-  <div class="ui-box-container">
-    <form action="/search" class="ui-box-container">
-      <input type="text" class="fm-text" name="q" placeholder="Search ..">
-    </form>
-  </div>
-</div>
-
-<div class="ui-box">
-  <div class="ui-box-header">
-    <h4>{{ _("Don't have an account?") }}</h4>
-  </div>
-  <div class="ui-box-container">
-    <a href="/account/signup" class="ui-btn">{{ _("Signup") }}</a>
-  </div>
-</div>
-
-{% end %}
-
-
- 
-{% block siteinfo %}
-          <div class="ui-box">
-            <div class="ui-box-container">siteinfo
-            </div>
-          </div>
 {% end %}
