@@ -7,19 +7,19 @@
 {% block content %}
 <div class="box">
 
-测试新的Idea!
+<div class="ui-box-header">V2dig»发表新的idea</div>
 <table cellpadding="5" cellspacing="0" border="0" width="100%">
 	<tbody>
 		<form action="" method="post" >
 			{% raw xsrf_form_html() %}
 			<tr>
-				<td><textarea class="mle" rows=5 cols=68 name="title" autofocus="autofocus" required></textarea></td>
+				<td><textarea class="mle" rows=5 cols=68 name="title" autofocus="autofocus" placeholder="请填写标题：" required></textarea></td>
 			</tr>
 			<tr>
-				<td><textarea class="mle" rows=15 cols=68 name="content" required></textarea></td>
+				<td><textarea class="mle" rows=15 cols=68 name="content" placeholder="请填写idea：" required></textarea></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="创 建" class="super normal button"></td>
+				<td><input type="submit" value="创 建" class="ui-btn"></td>
 			</tr>
 		</form>
 	</tbody>

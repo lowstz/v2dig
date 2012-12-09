@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block subtitle %}
+	Idea -
+{% end %}
+{% block head %}
+	<link rel="stylesheet" href="{{ static_url('css/ideaList.css')}}" type="text/css" />
+{% end %}
+
+{% block sidebar %}
+<div class="ui-box">
+  <div class="ui-box-container">
+	<a href="/idea/new_idea" class="ui-btn">
+		<span style="float:center;margin:2px 0 0 0;font-size:13pt;">创建新Idea</span>
+	</a>
+  </div>
+</div>
+{% end %}
+
+{% block content %}
+
+<div class='clearfix' id='mn-body-block'>
+	
+	<div id="mn-l">
+		<div class="index-ideas" style="min-height: 271px; ">
+			<div class="row">
+				{% module IdeaListModule(ideas) %}
+			</div>
+		</div>
+	</div>
+	<br>
+	{% module IdeaPaginatorModule(page, p)  %}
+</div>
+{% end %}

@@ -24,7 +24,10 @@ def md_to_html(content_md):
     content_html = markdown.markdown(content_md, ['codehilite', 'fenced_code'])
     return content_html
 
-
+def unicode_truncate(s,length,encoding='utf-8'):
+    encoded = s.encode(encoding)[:length]
+    return encoded.decode(encoding,'ignore')
+    
 class PageMixin(object):
     def _get_order(self):
         if not hasattr(self, 'get_argument'):

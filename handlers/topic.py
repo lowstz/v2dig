@@ -110,13 +110,13 @@ class TopicEditHandler(BaseHandler):
             self.redirect(url)
 
     def post(self, topic_id):
-        title = self.get_argument('title', None)
-        content_md = self.get_argument('content_md', None)
+        title = self.get_argument('title', '')
+        content_md = self.get_argument('content_md', '')
 
         url = '/topic/' + topic_id
         if not (title and content_md):
             self.flash('里面啥都没有提交个屁啊', 'error')
-            self.render('edit_topic.html', topic=topic)
+            return self.redirect(url + '/edit')
 
         self.db.topic.update({'tid':int(topic_id)}, {"$set": {"title": title, "content_md": content_md, "content_html": md_to_html(content_md) }})
         self.redirect(url)

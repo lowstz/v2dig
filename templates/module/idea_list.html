@@ -1,0 +1,26 @@
+{% for idea in ideas %}
+{% set author = handler.get_member( idea['author']) %}
+<!--这是一个模板-->
+<div class="index-idea">
+	<div class="head">
+		<a href="/member/{{ idea['author'] }}" ><img alt="{{ idea['author'] }}" class="peop" src="{{ handler.get_avatar(author['email']) }}" title="{{ idea['author'] }}"></a>
+		<div class="middle"> 
+			<h2 class="title"><a href="/idea/{{ idea['iid'] }}" >{{ unicode_truncate(idea['title'],60) }}...</a></h2>
+			<div class="user">
+				<a href="/member/{{ idea['author'] }}" >{{ idea['author'] }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="desc">{{ unicode_truncate(idea['content'],460) }}...</div>
+	<div class="info">
+		<div class="label idea">
+			<a href="/idea/{{ idea['iid'] }}">
+				<img alt="评论数" class="status" onmouseout="this.src='/static/img/climbing-0.png'" onmouseover="this.src='/static/img/climbing-1.png'" src="/static/img/climbing-0.png">
+			</a>
+		</div>
+		<div class="label num">{{ idea['reply_count'] }}</div>
+		<div class="label num">	 {{ handler.format_time(idea['date']) }}</div>
+	</div>
+</div>
+
+{% end %}
