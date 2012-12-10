@@ -14,12 +14,14 @@ class MemberPageHandler(BaseHandler, PageMixin):
         topics_count = topics.count()
         replies_count = replies.count()
 
-        self.render('member.html', member=member, topics=topics, replies=replies, 
+        self.render('member.html', 
+                    member=member, topics=topics, replies=replies, 
                     topics_count=topics_count, replies_count=replies_count)
 
 class MemberPageReplyListModule(tornado.web.UIModule):
     def render(self, replies):
-        return self.render_string("module/member_reply_list.html", replies=replies)
+        return self.render_string("module/member_reply_list.html", 
+                                  replies=replies)
 
 
 

@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import time
-import datetime
 import hashlib
+import sys
+import settings
 import tornado.web
 import tornado.escape
-
-import sys
 sys.path.append('..')
-import settings
-
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
@@ -26,7 +23,8 @@ class BaseHandler(tornado.web.RequestHandler):
     def flash(self, message, category='message'):
         messages = self.messages()
         messages.append((category, message))
-        self.set_secure_cookie('flash_messages', tornado.escape.json_encode(messages))
+        self.set_secure_cookie('flash_messages',
+                               tornado.escape.json_encode(messages))
     
     def messages(self):
         messages = self.get_secure_cookie('flash_messages')

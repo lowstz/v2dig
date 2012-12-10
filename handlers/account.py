@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import re
 import time
 from base import BaseHandler
-from lib import *
+from lib import encrypt_password, validate_password
 
+username_validator = re.compile(r'^[a-zA-Z0-9]+$')
+email_validator = re.compile(r'^.+@[^.].*\.[a-z]{2,10}$', re.IGNORECASE)
 
 class SigninHandler(BaseHandler):
     def get(self):
@@ -110,7 +113,8 @@ class SettingHandler(BaseHandler):
         description = self.get_argument('description', '')
 
         self.db.user.update({"username": self.get_current_user()},
-                            {"$set": {"website": website, "description": description}})
+                            {"$set": {"website": website, 
+                                      "description": description}})
         self.flash("个人设置已更新", 'info')
         self.redirect('/account/setting')
 
@@ -141,8 +145,9 @@ class ChangePasswordHandler(BaseHandler):
             self.flash('输入的旧密码不正确，请在多次几次', 'error') 
             self.redirect('/account/password')
         
-        self.db.user.update({"username": self.get_current_user()},
-                            {"$set": {"password": encrypt_password(new_password)}})
+        self.db.user.update(
+            {"username": self.get_current_user()},
+            {"$set": {"password": encrypt_password(new_password)}})
         self.flash('密码修改完成, 请重新登陆', 'info')
         self.redirect('/account/signout')
 

@@ -3,7 +3,7 @@
 import time
 import tornado.web
 from base import BaseHandler
-from lib import *
+from lib import PageMixin, md_to_html, unicode_truncate
 
 class IdeaListHandler(BaseHandler, PageMixin):
     def get(self):
@@ -14,10 +14,6 @@ class IdeaListHandler(BaseHandler, PageMixin):
 #        p = self._get_page()
         page = self._get_pagination(ideas, perpage=9)
         self.render("ideaList.html" , ideas=ideas,page=page, p=p)
-#        t=self.db['user'].update({'user':'sw78'},{"$push":{"comments":{"time":tex1,"xx":tex2}}})
-
-#class Ideafsfsd(IdeaListHandler):
-#    def get(self,):
 
 class NewIdeaHandler(BaseHandler):
     def get(self):
@@ -26,6 +22,7 @@ class NewIdeaHandler(BaseHandler):
         else:
             self.flash("请先登陆后再进行操作", "error")
             self.redirect('/account/signin')
+            
     def post(self):
         title=self.get_argument("title",None)
         content_md=self.get_argument("content",None)
@@ -35,10 +32,16 @@ class NewIdeaHandler(BaseHandler):
             self.render('new_idea.html')
             return
         iid = self.db.auto_inc.find_and_modify(update={"$inc":{"idea_id":1}},
-                                                query={"name":"idea_id"}, new=True).get("idea_id")
-        self.db['Idea'].save({'author':self.get_current_user(),'date':time.time(),'title':title,
-                                'content':content_md,'content_html':content_html, "reply_count": 0,
-                                'progress':'启动中','iid' : iid})
+                                                query={"name":"idea_id"}, 
+                                                new=True).get("idea_id")
+        self.db['Idea'].save({'author':self.get_current_user(),
+                              'date':time.time(),
+                              'title':title,
+                              'content':content_md,
+                              'content_html':content_html, 
+                              "reply_count": 0,
+                              'progress':'启动中',
+                              'iid' : iid})
         self.redirect("/idea")
         
 class EditIdeaHandler(BaseHandler):  
@@ -49,6 +52,7 @@ class EditIdeaHandler(BaseHandler):
             self.render('edit_idea.html', idea=idea,url=url)
         else:
             self.redirect(url)
+            
     def post(self,idea_id):
         title = self.get_argument('title', '')
         content_md = self.get_argument('content', '')
@@ -58,9 +62,11 @@ class EditIdeaHandler(BaseHandler):
             self.flash('表单不允许为空！', 'error')
             return self.redirect(url + '/edit')
 
-        self.db['Idea'].update({'iid':int(idea_id)}, {"$set": {"title": title, "content_md": content_md, 
-                                                               "content_html": md_to_html(content_md),
-                                                               "progress":progress }})
+        self.db['Idea'].update({'iid':int(idea_id)}, 
+                               {"$set": {"title": title, 
+                                         "content_md": content_md, 
+                                         "content_html": md_to_html(content_md),
+                                         "progress":progress }})
         self.redirect(url)
         
         
@@ -70,6 +76,7 @@ class IdeaHanler(BaseHandler):
         member = self.get_member(idea['author'])
         replies=self.db['reply_Idea'].find({'iid':iid},sort=[('time',-1)])
         self.render('idea.html', idea=idea, replies=replies, member=member)
+        
     def post(self, iid):
         content=self.get_argument('content', None)
         url = "/idea/" + iid
@@ -82,13 +89,16 @@ class IdeaHanler(BaseHandler):
             self.redirect(url)
             return
         self.db['Idea'].update({"iid": int(iid)}, {"$inc": {"reply_count":1}})
-        self.db['reply_Idea'].save({"content" : content, "author" :self.get_current_user(), 
-                                    "time" : time.time(), "iid" :iid })
+        self.db['reply_Idea'].save({"content" : content, 
+                                    "author" :self.get_current_user(), 
+                                    "time" : time.time(), 
+                                    "iid" :iid })
         self.redirect(url)
 
 class IdeaListModule(tornado.web.UIModule):
     def render(self , ideas):
-        return self.render_string("module/idea_list.html" , ideas=ideas, unicode_truncate=unicode_truncate)
+        return self.render_string("module/idea_list.html" , ideas=ideas, 
+                                  unicode_truncate=unicode_truncate)
       
 class IdeaPaginatorModule(tornado.web.UIModule):
     def render(self, page,p):

@@ -95,8 +95,10 @@ class TopicHandler(BaseHandler):
         }
 
         self.db.reply.save(reply)
-        self.db.topic.update({"tid": int(topic_id)}, {"$inc": {"reply_count":1}})
-        self.db.topic.update({"tid": int(topic_id)}, {"$set": {"last_reply_time": reply_time}})
+        self.db.topic.update({"tid": int(topic_id)}, 
+                             {"$inc": {"reply_count":1}})
+        self.db.topic.update({"tid": int(topic_id)}, 
+                             {"$set": {"last_reply_time": reply_time}})
         url = "/topic/" + topic_id
         self.redirect(url)
 
@@ -118,7 +120,10 @@ class TopicEditHandler(BaseHandler):
             self.flash('里面啥都没有提交个屁啊', 'error')
             return self.redirect(url + '/edit')
 
-        self.db.topic.update({'tid':int(topic_id)}, {"$set": {"title": title, "content_md": content_md, "content_html": md_to_html(content_md) }})
+        self.db.topic.update({'tid':int(topic_id)}, 
+                             {"$set": {"title": title, 
+                                       "content_md": content_md, 
+                                       "content_html": md_to_html(content_md) }})
         self.redirect(url)
 
 class TopicListModule(tornado.web.UIModule):
