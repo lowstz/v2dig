@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block subtitle %}{{ _("Create Node")}} | {% end %}
+
+{% block content %}
+
+<div class="ui-box">
+  <div class="ui-box-header">
+    <h3>创建节点</h3>
+  </div>
+  <form action="" method="post" class="ui-box-container">
+    {% raw xsrf_form_html() %}
+    <div class="fm-item fm-required">
+      <label class="fm-label" for="node_name">node_name</label>
+      <input type="text" class="fm-text" name="node_name" value="">
+    </div>
+    <div class="fm-item fm-required">
+      <label class="fm-label" for="node_title">node_title</label>
+      <input type="text" class="fm-text" name="node_title" value="">
+    </div>
+    <div class="fm-item fm-required">
+      <label class="fm-label" for="description">node_description</label>
+      <textarea class="fm-text" name="description"></textarea>
+    </div>
+    <div class="fm-item">
+      <button class="ui-btn">Save</button>
+    </div>
+  </form>
+</div>
+{% end %}

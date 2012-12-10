@@ -21,6 +21,9 @@
             <a href="/member/{{ current_user }}">{{ current_user}}</a>
           </div>
           <nav class="user-links">
+            {% if handler.is_admin() %}
+            <a href="/dashboard" title="管理"><span class="icon-info-circle"></span></a>
+            {% end %}
             <a href="/topic/create" title="创建主题"><span class="icon-edit"></span></a>
             <a href="/account/setting" title="设置"><span class="icon-cog"></span></a>
             <a href="/account/signout" title="登出"><span class="icon-logout"></span></a>

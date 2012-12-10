@@ -41,7 +41,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_member(self, username):
         member = self.db.user.find_one({'username': username})
         if not member:
-            raise tornado.web.HTTPError(404)
+            return None
         return member
 
     def get_node(self, node_name):
@@ -59,3 +59,11 @@ class BaseHandler(tornado.web.RequestHandler):
         t = time.localtime(unixtime)
         formated_time = time.strftime('%Y-%m-%d %H:%M:%S', t)
         return formated_time
+
+    def is_admin(self):
+        user =  self.get_member(self.get_current_user())
+        if user:
+            if user['role'] == 3:
+                return True
+            else:
+                return False

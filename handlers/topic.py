@@ -3,7 +3,7 @@
 import time
 import tornado.web
 from base import BaseHandler
-from lib import *
+from lib import PageMixin, md_to_html
 
 class TopicListHandler(BaseHandler, PageMixin):
     def get(self):
@@ -34,13 +34,13 @@ class CreateTopicHandler(BaseHandler):
             self.redirect('/account/signin')
 
     def post(self, node_name):
-        title = self.get_argument('title', None)
-        content_md = self.get_argument('content_md', None)
-
+        title = self.get_argument('title', '')
+        content_md = self.get_argument('content_md', '')
+        url = '/node/' + node_name + '/create'
+        
         if not (title and content_md):
             self.flash("Please fill the required field", "error")
-            self.render('create_topic.html', topic=None, node=node)
-            return
+            return self.redirect(url)
 
         tid = self.db.auto_inc.find_and_modify(
             update={"$inc": {"topic_id":1}},
@@ -116,7 +116,7 @@ class TopicEditHandler(BaseHandler):
         url = '/topic/' + topic_id
         if not (title and content_md):
             self.flash('里面啥都没有提交个屁啊', 'error')
-            self.render('edit_topic.html', topic=topic)
+            return self.redirect(url + '/edit')
 
         self.db.topic.update({'tid':int(topic_id)}, {"$set": {"title": title, "content_md": content_md, "content_html": md_to_html(content_md) }})
         self.redirect(url)
@@ -152,3 +152,8 @@ ui_modules = {
     'PaginatorModule': PaginatorModule,
     'SystemStatusModule': SystemStatusModule,
     }
+
+
+## TODO: Topic移动
+## TODO: Topic删除
+## TODO: Topic Reply 图片上传

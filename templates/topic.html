@@ -24,10 +24,14 @@ height: 100px;
   </div>
   <div class="ui-box-footer fn-clear">
     <div class="entry-meta">
-      创建时间: {{ handler.format_time(topic['create_time']) }}
+      创建: {{ handler.format_time(topic['create_time']) }} - 修改: {{ handler.format_time(topic['last_motified_time']) }}
     </div>
-    {% if handler.get_current_user() == topic['author'] %}
+    {% if handler.is_admin() %}
     <div style="text-align: right;"><a href="/topic/{{ topic['tid'] }}/edit" title="编辑此主题">编辑</a></div>
+    {% else %}
+    {% if current_user == topic['author'] %}
+    <div style="text-align: right;"><a href="/topic/{{ topic['tid'] }}/edit" title="编辑此主题">编辑</a></div>
+    {% end %}
     {% end %}
   </div>
 </article>

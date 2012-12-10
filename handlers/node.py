@@ -13,8 +13,31 @@ class NodeListHandler(BaseHandler, PageMixin):
 
 class CreateNodeHandler(BaseHandler):
     def get(self):
-        pass
+        if self.is_admin():
+            self.render('create_node.html')
+        else:
+            self.set_status(403)
+
+    def post(self):
+        node_name = self.get_argument('node_name', None)
+        node_title = self.get_argument('node_title', None)
+        description = self.get_argument('description', None)
+
+        if not (node_name and node_title and description):
+            self.flash('请填点东西吧', 'error')
+            self.redirect('/dashboard/create_node')
+        new_node = {}
+        new_node['node_name'] = node_name.lower()
+        new_node['node_title'] = node_title
+        new_node['description'] = description
+        
+        self.db.node.save(new_node)
+        self.redirect('/dashboard/create_node')
     
 handlers = [
     (r'/node/(\w+)', NodeListHandler),
+    (r'/dashboard/create_node', CreateNodeHandler),
     ]
+
+
+## TODO: 节点创建
