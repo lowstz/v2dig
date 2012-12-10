@@ -110,8 +110,8 @@ class TopicEditHandler(BaseHandler):
             self.redirect(url)
 
     def post(self, topic_id):
-        title = self.get_argument('title', None)
-        content_md = self.get_argument('content_md', None)
+        title = self.get_argument('title', '')
+        content_md = self.get_argument('content_md', '')
 
         url = '/topic/' + topic_id
         if not (title and content_md):
