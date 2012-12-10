@@ -9,6 +9,7 @@ cd v2dig
 virtualenv ./v2digenv
 source v2digenv/bin/activate
 pip install -r requirement.txt
+$EDITOR setting.py
 ```
 
 运行
@@ -16,6 +17,8 @@ pip install -r requirement.txt
 ```
 python app.py --port=8000
 ```
+
+
 
 部署
 -----------------
