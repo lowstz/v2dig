@@ -7,38 +7,38 @@
 {% block content %}
 <div class="box">
 
-<div class="ui-box-header">V2dig»编辑idea»</div>
-<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <div class="ui-box-header">V2dig»编辑idea»</div>
+  <table cellpadding="5" cellspacing="0" border="0" width="100%">
 	<tbody>
-		<form action="" method="post" >
-			{% raw xsrf_form_html() %}
-			<tr>
-				<td><textarea class="ett" name="title" autofocus="autofocus" placeholder="请填写标题：" required>{{ idea['title'] }}</textarea></td>
-			</tr>
-			<tr>
-				<td><textarea class="etc" name="content" placeholder="请填写idea：" required>{{ idea['content'] }}</textarea></td>
-			</tr>
-			<tr>
-				<td><div style="color:blue;margin : 5px 3px 7px 7px;float:left">项目进度：</div>
-					<div style="float:left">
-						<div class="styled-select">
-							<select name="progress" >
-								<option value="{{ idea['progress'] }}"  selected="selected">{{ idea['progress'] }}</option>
-								<option value="启动中" >启动中</option>
-								<option value="进行时" >进行时</option>
-								<option value="已完成" >已完成</option>
-							</select>
-						</div>
-					</div>
-					<div style="float:right">
-						<input type="submit" value="保 存" class="ui-btn">
-						<a href="{{ url }}"><input type="button" value="返 回" class="ui-btn"></a>
-					</div>
-				</td>
-			</tr>
-		</form>
+	  <form action="" method="post" >
+		{% raw xsrf_form_html() %}
+		<tr>
+		  <td><textarea class="ett" name="title" autofocus="autofocus" placeholder="请填写标题：" required>{{ idea['title'] }}</textarea></td>
+		</tr>
+		<tr>
+		  <td><textarea class="etc" name="content" placeholder="请填写idea：" required>{{ idea['content'] }}</textarea></td>
+		</tr>
+		<tr>
+		  <td><div style="color:blue;margin : 5px 3px 7px 7px;float:left">项目进度：</div>
+			<div style="float:left">
+			  <div class="styled-select">
+				<select name="progress" >
+				  <option value="{{ idea['progress'] }}"  selected="selected">{{ idea['progress'] }}</option>
+				  <option value="启动中" >启动中</option>
+				  <option value="进行时" >进行时</option>
+				  <option value="已完成" >已完成</option>
+				</select>
+			  </div>
+			</div>
+			<div style="float:right">
+			  <input type="submit" value="保 存" class="ui-btn">
+			  <a href="{{ url }}"><input type="button" value="返 回" class="ui-btn"></a>
+			</div>
+		  </td>
+		</tr>
+	  </form>
 	</tbody>
-</table>
+  </table>
 
 </div>
 

@@ -1,136 +1,136 @@
 {% extends "base.html" %}
 
 {% block head %}
-	<script src="{{ static_url("js/idea.js") }}" type="text/javascript"></script>
-	<link rel="stylesheet" href="{{ static_url('css/textidea.css')}}" type="text/css" />
-	<link rel="stylesheet" href="{{ static_url('css/pygments-style.css')}}" type="text/css" />
-	<script type="text/javascript">
-		function pro(){
-			document.getElementById("progress").innerHTML="sbqing"; 
-		}
-	</script>
+<script src="{{ static_url("js/idea.js") }}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{ static_url('css/textidea.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{ static_url('css/pygments-style.css')}}" type="text/css" />
+<script type="text/javascript">
+  function pro(){
+  document.getElementById("progress").innerHTML="sbqing"; 
+  }
+</script>
 {% end %}
 
 {% block content %}
 <div id="mn-body">
-<div class="clearfix" id="mn-body-block">
+  <div class="clearfix" id="mn-body-block">
 
 	<div class="golden" id="mn-r">
-		<div class="fix_inner">
+	  <div class="fix_inner">
 		
-			<div class="pnl-text" id="right_tab_panel">
-				
-				<div class="tabs" >
-					<div class="tab curr"  id=focusTab1 onmouseover=focusTab(1);>
-						<img alt="评论" src="/static/img/comments.png">
-						<span class="w">评 论</span>
-					</div>
-					<div class="tab interests"  rel="external" id=focusTab2 onmouseover=focusTab(2);>
-						<span class="w">Markdown 语法</span>
-					</div>
-					<div class="tab"  rel="external" id=focusTab3 onmouseover=focusTab(3);>
-						<span class="w">待定</span>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div id="focusTable1" class="slides resizable" style="min-height: 300px; ">
-					<div class="slide_container" style="left: 0px; ">
-						<div class="slide " style="height: 443px; ">
-						{% if handler.get_current_user() == idea['author'] %}
-							<div class="pnl-head comment_right_panel">
-								<div class="input small" id="cs_comment">
-									<form accept-charset="UTF-8" action="" class="new_comment" id="new_comment" method="post">
-										{% raw xsrf_form_html() %}
-										<div class="comment-body-field">
-											<textarea class="comment-body" cols="33" name="content" rows="2" onclick="Comment_click()" onblur="Comment_no()" placeholder="评论在此："></textarea>
-											<div class="send_shortcut_hint"><input type="submit" value="发送" ></div>
-										</div>
-										
-									</form>
-								</div>
-							</div>
-						{% end %}
-							<div class="comment_lists" } >
-								{% for reply in replies %}
-								{% set author = handler.get_member(reply['author']) %}
-									<dl class="comment_list">
-										<dt>
-											<a href="/member/{{ reply['author'] }}">
-												<img width="30" height="30" alt="{{reply['author']}}" src="{{ handler.get_avatar(author['email']) }}">
-											</a>
-										</dt>
-									<dd>
-									<div style="float:left;"><a href="/member/{{ reply['author'] }}">{{ reply['author'] }}:</a></div>
-									<div style="float:right;">({{ handler.format_time(reply['time']) }})</div>
-									<br>{{ reply['content'] }}
-									</dd>
-									</dl>
-								{% end %}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="focusTable2" class="slides resizable">
-					<ul>
-						<li>强烈推荐阅读使用以下Markdown语法说明：</li>
-						简体中文版：<a href="http://wowubuntu.com/markdown/" target="_blank">http://wowubuntu.com/markdown/</a>
-						<br>
-						英文原版：<a href="http://daringfireball.net/projects/markdown/" target="_blank">http://daringfireball.net/projects/markdown/</a>
-					</ul>
-				</div>
-				<div id="focusTable3" class="slides resizable">
-					????
-				</div>
-				
+		<div class="pnl-text" id="right_tab_panel">
+		  
+		  <div class="tabs" >
+			<div class="tab curr"  id=focusTab1 onmouseover=focusTab(1);>
+			  <img alt="评论" src="/static/img/comments.png">
+			  <span class="w">评 论</span>
 			</div>
+			<div class="tab interests"  rel="external" id=focusTab2 onmouseover=focusTab(2);>
+			  <span class="w">Markdown 语法</span>
+			</div>
+			<div class="tab"  rel="external" id=focusTab3 onmouseover=focusTab(3);>
+			  <span class="w">待定</span>
+			</div>
+			<div class="clearfix"></div>
+		  </div>
+		  <div id="focusTable1" class="slides resizable" style="min-height: 300px; ">
+			<div class="slide_container" style="left: 0px; ">
+			  <div class="slide " style="height: 443px; ">
+				{% if handler.get_current_user() == idea['author'] %}
+				<div class="pnl-head comment_right_panel">
+				  <div class="input small" id="cs_comment">
+					<form accept-charset="UTF-8" action="" class="new_comment" id="new_comment" method="post">
+					  {% raw xsrf_form_html() %}
+					  <div class="comment-body-field">
+						<textarea class="comment-body" cols="33" name="content" rows="2" onclick="Comment_click()" onblur="Comment_no()" placeholder="评论在此："></textarea>
+						<div class="send_shortcut_hint"><input type="submit" value="发送" ></div>
+					  </div>
+					  
+					</form>
+				  </div>
+				</div>
+				{% end %}
+				<div class="comment_lists" } >
+				  {% for reply in replies %}
+				  {% set author = handler.get_member(reply['author']) %}
+				  <dl class="comment_list">
+					<dt>
+					  <a href="/member/{{ reply['author'] }}">
+						<img width="30" height="30" alt="{{reply['author']}}" src="{{ handler.get_avatar(author['email']) }}">
+					  </a>
+					</dt>
+					<dd>
+					  <div style="float:left;"><a href="/member/{{ reply['author'] }}">{{ reply['author'] }}:</a></div>
+					  <div style="float:right;">({{ handler.format_time(reply['time']) }})</div>
+					  <br>{{ reply['content'] }}
+					</dd>
+				  </dl>
+				  {% end %}
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <div id="focusTable2" class="slides resizable">
+			<ul>
+			  <li>强烈推荐阅读使用以下Markdown语法说明：</li>
+			  简体中文版：<a href="http://wowubuntu.com/markdown/" target="_blank">http://wowubuntu.com/markdown/</a>
+			  <br>
+			  英文原版：<a href="http://daringfireball.net/projects/markdown/" target="_blank">http://daringfireball.net/projects/markdown/</a>
+			</ul>
+		  </div>
+		  <div id="focusTable3" class="slides resizable">
+			????
+		  </div>
+		  
 		</div>
+	  </div>
 	</div>
 
 	<div class="golden idea-desc" id="mn-l">
-		<div class="pnl-text" style="min-height: 257px; ">
-			<a href="#"></a>
-			<div class="pnl-head">
-				<div id="idea-caption">
-					<img alt="{{ idea['author'] }}" class="peop avatar" src="{{ handler.get_avatar(member['email']) }}" title="{{ idea['author'] }}">
-					<div class="right">
-						<div class="title">
-							<h1>{{ idea['title'] }}</h1>
-						</div>
-						<div class="user">
-							<a href="/member/{{ idea['author'] }}" data-pjax="#mn-body-block">{{ idea['author'] }}</a>
-							<abbr class="timeago ok" >{{ handler.format_time(idea['date']) }}</abbr>
-						</div>
-						{% if handler.get_current_user() == idea['author'] %}
-							<div style="text-align: right;">
-								<a href="/idea/{{ idea['iid'] }}/edit" title="作者编辑修改">编辑</a>
-							</div>
-						{% end %}
-					</div>
-				</div>
+	  <div class="pnl-text" style="min-height: 257px; ">
+		<a href="#"></a>
+		<div class="pnl-head">
+		  <div id="idea-caption">
+			<img alt="{{ idea['author'] }}" class="peop avatar" src="{{ handler.get_avatar(member['email']) }}" title="{{ idea['author'] }}">
+			<div class="right">
+			  <div class="title">
+				<h1>{{ idea['title'] }}</h1>
+			  </div>
+			  <div class="user">
+				<a href="/member/{{ idea['author'] }}" data-pjax="#mn-body-block">{{ idea['author'] }}</a>
+				<abbr class="timeago ok" >{{ handler.format_time(idea['date']) }}</abbr>
+			  </div>
+			  {% if handler.get_current_user() == idea['author'] %}
+			  <div style="text-align: right;">
+				<a href="/idea/{{ idea['iid'] }}/edit" title="作者编辑修改">编辑</a>
+			  </div>
+			  {% end %}
 			</div>
-			
-			<div class="detail">
-				{% raw idea['content_html'] %}
-			</div>
-			<div class="pnl-foot">
-				<div class="pnl-foot-inner"> 
-					<div style="float:left;">项目进度:</div>
-					<div class="graph" style="float:left;">
-						{% if cmp(idea['progress'], u'启动中')==0 %}
-							<strong id="progress_h" style="width:3%;" title="{{ idea['progress'] }}"></strong>{{ idea['progress'] }}
-						{% elif cmp(idea['progress'], u'进行时')==0%}
-							<strong id="progress" style="width:50%;" title="{{ idea['progress'] }}"></strong>
-						{% else %}
-							<strong id="progress" style="width:100%;" title="{{ idea['progress'] }}"></strong>
-						{% end %}
-					</div> 
-				</div>
-			</div>
+		  </div>
 		</div>
+		
+		<div class="detail">
+		  {% raw idea['content_html'] %}
+		</div>
+		<div class="pnl-foot">
+		  <div class="pnl-foot-inner"> 
+			<div style="float:left;">项目进度:</div>
+			<div class="graph" style="float:left;">
+			  {% if cmp(idea['progress'], u'启动中')==0 %}
+			  <strong id="progress_h" style="width:3%;" title="{{ idea['progress'] }}"></strong>{{ idea['progress'] }}
+			  {% elif cmp(idea['progress'], u'进行时')==0%}
+			  <strong id="progress" style="width:50%;" title="{{ idea['progress'] }}"></strong>
+			  {% else %}
+			  <strong id="progress" style="width:100%;" title="{{ idea['progress'] }}"></strong>
+			  {% end %}
+			</div> 
+		  </div>
+		</div>
+	  </div>
 	</div>
 	
 	
-</div>
+  </div>
 </div>
 
 {% end %}

@@ -4,31 +4,31 @@
 
 {% block head %}<style type="text/css">
 
-#editor textarea {
-width: 97%;
-height: 400px;
-}
+  #editor textarea {
+  width: 97%;
+  height: 400px;
+  }
 
 </style>
 {% end %}
 
 {% block content %}
 <div class="ui-box">
-<h3 class="ui-box-header">
-This topic is in: <a href="/node/{{ topic['node'] }}" >{{ topic['node'] }}</a>
-</h3>
-<form action="" method="post" class="ui-box-container">
-  {% raw xsrf_form_html() %}
-  <div class="fm-item fm-require">
-    <input type="text" class="fm-text" size="60" name="title"
-           value="{{ topic['title'] }}" required>
-  </div>
-  <div id="editor" class="fm-item">
-    <textarea name="content_md" class="fm-text"  required>{{ topic['content_md'] }}</textarea>
-  </div>
-  <div>
-    <button type="submit" class="ui-btn">Save</button>
-  </div>
+  <h3 class="ui-box-header">
+    This topic is in: <a href="/node/{{ topic['node'] }}" >{{ topic['node'] }}</a>
+  </h3>
+  <form action="" method="post" class="ui-box-container">
+    {% raw xsrf_form_html() %}
+    <div class="fm-item fm-require">
+      <input type="text" class="fm-text" size="60" name="title"
+             value="{{ topic['title'] }}" required>
+    </div>
+    <div id="editor" class="fm-item">
+      <textarea name="content_md" class="fm-text"  required>{{ topic['content_md'] }}</textarea>
+    </div>
+    <div>
+      <button type="submit" class="ui-btn">Save</button>
+    </div>
 </div>
 <div id="markdown-syntax" class="ui-box">
   <div class="ui-box-header fn-clear">
@@ -37,30 +37,30 @@ This topic is in: <a href="/node/{{ topic['node'] }}" >{{ topic['node'] }}</a>
   <div class="ui-box-container">
     <h5>Emphasize and Strong</h5>
     <pre>
-*emphasize*     **strong**
-_emphasize_     __strong__ </pre>
+      *emphasize*     **strong**
+      _emphasize_     __strong__ </pre>
 
     <h5>Link and Image</h5>
     <pre>
-[link](http://url.com)
-[link](http://url.com "Title")
+      [link](http://url.com)
+      [link](http://url.com "Title")
 
-![alt text](/path/to/img.jpg)</pre>
+      ![alt text](/path/to/img.jpg)</pre>
 
     <h5>List</h5>
     <pre>
-1. Foo
-2. Bar</pre>
+      1. Foo
+      2. Bar</pre>
     <pre>
-* Foo
-* Bar </pre>
+      * Foo
+      * Bar </pre>
 
     <h5>Code Block</h5>
     <pre>
-```python
-def hello():
-return True
-``` </pre>
+      ```python
+      def hello():
+      return True
+      ``` </pre>
   </div>
 </div>
 {% end %}
