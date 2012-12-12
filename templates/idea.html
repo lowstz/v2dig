@@ -36,6 +36,7 @@
 				<div id="focusTable1" class="slides resizable" style="min-height: 300px; ">
 					<div class="slide_container" style="left: 0px; ">
 						<div class="slide " style="height: 443px; ">
+						{% if handler.get_current_user() == idea['author'] %}
 							<div class="pnl-head comment_right_panel">
 								<div class="input small" id="cs_comment">
 									<form accept-charset="UTF-8" action="" class="new_comment" id="new_comment" method="post">
@@ -48,6 +49,7 @@
 									</form>
 								</div>
 							</div>
+						{% end %}
 							<div class="comment_lists" } >
 								{% for reply in replies %}
 								{% set author = handler.get_member(reply['author']) %}
