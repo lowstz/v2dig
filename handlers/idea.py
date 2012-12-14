@@ -27,7 +27,7 @@ class NewIdeaHandler(BaseHandler):
 
     def post(self):
         title = self.get_argument("title", None)
-        content_md = self.get_argument("content", None)
+        content_md = self.get_argument("content_md", None)
         content_html = md_to_html(content_md)
         if not (title and content_md):
 #            self.flash_message('请输入标题和正文！', 'error')
@@ -39,7 +39,7 @@ class NewIdeaHandler(BaseHandler):
         self.db['Idea'].save({'author': self.get_current_user(),
                               'date': time.time(),
                               'title': title,
-                              'content': content_md,
+                              'content_md': content_md,
                               'content_html': content_html,
                               "reply_count": 0,
                               'progress': '启动中',
@@ -58,7 +58,7 @@ class EditIdeaHandler(BaseHandler):
 
     def post(self, idea_id):
         title = self.get_argument('title', '')
-        content_md = self.get_argument('content', '')
+        content_md = self.get_argument('content_md', '')
         progress = self.get_argument('progress', '')
         url = '/idea/' + idea_id
         if not (title and content_md):
