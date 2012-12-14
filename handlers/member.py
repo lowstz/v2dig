@@ -11,12 +11,11 @@ class MemberPageHandler(BaseHandler, PageMixin):
                                     sort=[('create_time', -1)]).limit(5)
         replies = self.db.reply.find({'author': member['username']},
                                     sort=[('create_time', -1)]).limit(5)
-        topics_count = topics.count()
-        replies_count = replies.count()
+        ideas = self.db.Idea.find({'author': member['username']},
+                                  sort=[('date',-1)]).limit(5)
 
         self.render('member.html', 
-                    member=member, topics=topics, replies=replies, 
-                    topics_count=topics_count, replies_count=replies_count)
+                    member=member, topics=topics, replies=replies, ideas=ideas)
 
 class MemberPageReplyListModule(tornado.web.UIModule):
     def render(self, replies):
