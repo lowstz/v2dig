@@ -111,6 +111,11 @@ class IdeaPaginatorModule(tornado.web.UIModule):
         return self.render_string('module/idea_paginator.html', page=page, p=p)
 
 
+class MemberIdeaListModule(tornado.web.UIModule):       
+    def render(self,ideas):
+        return self.render_string("module/member_idea_list.html", ideas=ideas)
+    
+
 handlers = [
     (r'/idea', IdeaListHandler),
     (r'/idea/new_idea', NewIdeaHandler),
@@ -118,5 +123,6 @@ handlers = [
     (r'/idea/(\w+)', IdeaHanler)]
 
 ui_modules = {
-    'IdeaListModule': IdeaListModule,
-    'IdeaPaginatorModule': IdeaPaginatorModule}
+    'IdeaListModule':IdeaListModule,
+    'IdeaPaginatorModule':IdeaPaginatorModule,
+    'MemberIdeaListModule':MemberIdeaListModule}
