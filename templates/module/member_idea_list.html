@@ -1,0 +1,16 @@
+{% for idea in ideas %}
+{% set author = handler.get_member(idea['author']) %}
+<div class="ui-cell article">
+  <a href="/member/{{ idea['author'] }}"
+     class="ui-avatar"><img src="{{ handler.get_avatar(author['email']) }}" width="48" height="48"></a>
+  <a href="/idea/{{idea['iid']}}" class="ui-cell-top-right" title="{{idea['iid']}}">{{idea['reply_count']}}</a>
+  <div class="article fn-wrap">
+    <h3><a href="/idea/{{idea['iid']}}">{{idea['title']}}</a></h3>
+    <div class="article-meta">
+      by <a href="/member/{{idea['author']}}">{{idea['author']}}</a> •
+      in <a href="">{{idea['progress']}}</a> •
+      <time datetime="{{ idea['date'] }}" title="replied">{{ handler.format_time(idea['date']) }}</time>
+    </div>
+  </div>
+</div>
+{% end %}
