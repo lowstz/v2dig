@@ -5,26 +5,27 @@ import tornado.web
 from base import BaseHandler
 from lib import PageMixin, md_to_html
 
+
 class TopicListHandler(BaseHandler, PageMixin):
     def get(self):
         topics = self.db.topic.find(sort=[('last_reply_time', -1)])
         p = self._get_page()
         page = self._get_pagination(topics, perpage=12)
-        
+
         self.render("home.html", topics=topics,
                     page=page, p=p)
-        
+
 
 class NewTopicHandler(BaseHandler):
     def get(self):
         nodes = self.db.node.find()
-        self.render('new_topic.html', nodes = nodes)
-        
-        
+        self.render('new_topic.html', nodes=nodes)
+
+
 class CreateTopicHandler(BaseHandler):
     def get(self, node_name):
         if self.get_current_user():
-            node = self.db.node.find_one({"node_name":node_name})
+            node = self.db.node.find_one({"node_name": node_name})
             if not node:
                 self.send_error(404)
                 return
@@ -37,16 +38,15 @@ class CreateTopicHandler(BaseHandler):
         title = self.get_argument('title', '')
         content_md = self.get_argument('content_md', '')
         url = '/node/' + node_name + '/create'
-        
+
         if not (title and content_md):
             self.flash("Please fill the required field", "error")
             return self.redirect(url)
 
         tid = self.db.auto_inc.find_and_modify(
-            update={"$inc": {"topic_id":1}},
-            query={"name":"topic_id"},
-            new=True
-            ).get("topic_id")
+            update={"$inc": {"topic_id": 1}},
+            query={"name": "topic_id"},
+            new=True).get("topic_id")
 
         url = '/topic/' + str(tid)
 
@@ -63,13 +63,13 @@ class CreateTopicHandler(BaseHandler):
 
         self.db.topic.save(topic)
         self.redirect(url)
-        
+
 
 class TopicHandler(BaseHandler):
     def get(self, topic_id):
         topic = self.db.topic.find_one({"tid": int(topic_id)})
 
-        replies = self.db.reply.find({"tid": int(topic_id)}, 
+        replies = self.db.reply.find({"tid": int(topic_id)},
                                      sort=[('last_reply_time', -1)])
         self.render("topic.html", topic=topic, replies=replies)
 
@@ -87,20 +87,20 @@ class TopicHandler(BaseHandler):
         content_html = md_to_html(content_md)
 
         reply = {
-                'author': self.get_current_user(),
-                'create_time': reply_time,
-                'tid': int(topic_id),
-                'content_md': content_md,
-                'content_html': content_html,
-        }
+            'author': self.get_current_user(),
+            'create_time': reply_time,
+            'tid': int(topic_id),
+            'content_md': content_md,
+            'content_html': content_html}
 
         self.db.reply.save(reply)
-        self.db.topic.update({"tid": int(topic_id)}, 
-                             {"$inc": {"reply_count":1}})
-        self.db.topic.update({"tid": int(topic_id)}, 
+        self.db.topic.update({"tid": int(topic_id)},
+                             {"$inc": {"reply_count": 1}})
+        self.db.topic.update({"tid": int(topic_id)},
                              {"$set": {"last_reply_time": reply_time}})
         url = "/topic/" + topic_id
         self.redirect(url)
+
 
 class TopicEditHandler(BaseHandler):
     def get(self, topic_id):
@@ -120,43 +120,46 @@ class TopicEditHandler(BaseHandler):
             self.flash('里面啥都没有提交个屁啊', 'error')
             return self.redirect(url + '/edit')
 
-        self.db.topic.update({'tid':int(topic_id)}, 
-                             {"$set": {"title": title, 
-                                       "content_md": content_md, 
-                                       "content_html": md_to_html(content_md) }})
+        self.db.topic.update({'tid': int(topic_id)},
+                             {"$set":
+                              {"title": title,
+                               "content_md": content_md,
+                               "content_html": md_to_html(content_md)}})
         self.redirect(url)
+
 
 class TopicListModule(tornado.web.UIModule):
     def render(self, topics):
         return self.render_string("module/topic_list.html", topics=topics)
 
+
 class ReplyListModule(tornado.web.UIModule):
     def render(self, replies):
         return self.render_string("module/reply_list.html", replies=replies)
+
 
 class PaginatorModule(tornado.web.UIModule):
     def render(self, page, p):
         return self.render_string("module/paginator.html", page=page, p=p)
 
+
 class SystemStatusModule(tornado.web.UIModule):
     def render(self):
         return self.render_string("module/status.html")
-        
+
 
 handlers = [
     (r'/', TopicListHandler),
     (r'/topic/create', NewTopicHandler),
     (r'/topic/(\d+)', TopicHandler),
     (r'/topic/(\d+)/edit', TopicEditHandler),
-    (r'/node/(\w+)/create', CreateTopicHandler),
-    ]
+    (r'/node/(\w+)/create', CreateTopicHandler)]
 
 ui_modules = {
     'TopicListModule': TopicListModule,
     'ReplyListModule': ReplyListModule,
     'PaginatorModule': PaginatorModule,
-    'SystemStatusModule': SystemStatusModule,
-    }
+    'SystemStatusModule': SystemStatusModule}
 
 
 ## TODO: Topic移动

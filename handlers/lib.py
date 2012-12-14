@@ -4,8 +4,10 @@
 import hashlib
 import markdown
 
+
 def encrypt_password(password):
-    """Hash password on the fly."""
+    """Hash password on the fly.
+    """
     m = hashlib.md5()
     m.update(password)
     password = m.hexdigest().upper()
@@ -15,14 +17,17 @@ def encrypt_password(password):
 def validate_password(hashed, input_password):
     return hashed == encrypt_password(input_password)
 
+
 def md_to_html(content_md):
     content_html = markdown.markdown(content_md, ['codehilite', 'fenced_code'])
     return content_html
 
-def unicode_truncate(s,length,encoding='utf-8'):
+
+def unicode_truncate(s, length, encoding='utf-8'):
     encoded = s.encode(encoding)[:length]
-    return encoded.decode(encoding,'ignore')
-    
+    return encoded.decode(encoding, 'ignore')
+
+
 class PageMixin(object):
     def _get_order(self):
         if not hasattr(self, 'get_argument'):
@@ -61,4 +66,3 @@ class PageMixin(object):
         dct['current_page'] = page
         dct['item_number'] = count
         return dct
-

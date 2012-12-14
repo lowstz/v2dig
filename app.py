@@ -16,6 +16,7 @@ define('settings', default=os.path.join(ROOT, 'settings.py'),
 from database import *
 from settings import *
 
+
 class Application(tornado.web.Application):
     def __init__(self):
         from urls import handlers, ui_modules
@@ -26,12 +27,13 @@ class Application(tornado.web.Application):
             cookie_secret=cookie_secret,
             ui_modules=ui_modules,
             gzip=True,
-            debug=False,
-            )
+            debug=False,)
+
         execfile(options.settings, {}, settings)
-        super(Application,self).__init__(handlers, **settings)
+        super(Application, self).__init__(handlers, **settings)
         tornado.web.Application.__init__(self, handlers, **settings)
         self.db = db
+
 
 def main():
     tornado.options.parse_command_line()
