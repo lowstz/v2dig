@@ -9,8 +9,9 @@ cd v2dig
 virtualenv ./v2digenv
 source v2digenv/bin/activate
 pip install -r requirement.txt
-$EDITOR setting.py
+emacs settings.py
 ```
+
 
 运行
 -----------------
