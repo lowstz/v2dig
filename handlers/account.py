@@ -80,13 +80,18 @@ class RegisterHandler(BaseHandler):
             query={"name": "user_id"},
             new=True).get("user_id")
 
+        if uid == 1:
+            role = 3
+        else:
+            role = 1
+            
         user = {
             "username": username,
             "password": hashed_password,
             "email": email,
             "registered_time": time.time(),
             "uid": uid,
-            'role': 1,
+            'role': role,
             "description": "",
             "website": "",
             "last_accesse_time": time.time()}

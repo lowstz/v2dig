@@ -10,6 +10,7 @@ virtualenv ./v2digenv
 source v2digenv/bin/activate
 pip install -r requirement.txt
 emacs settings.py
+python init_db.py
 ```
 
 
