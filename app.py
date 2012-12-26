@@ -27,7 +27,7 @@ class Application(tornado.web.Application):
             cookie_secret=cookie_secret,
             ui_modules=ui_modules,
             gzip=True,
-            debug=False,)
+            debug=True)
 
         execfile(options.settings, {}, settings)
         super(Application, self).__init__(handlers, **settings)

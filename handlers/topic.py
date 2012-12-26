@@ -56,6 +56,7 @@ class CreateTopicHandler(BaseHandler):
         topic['content_md'] = content_md
         topic['create_time'] = time.time()
         topic['last_reply_time'] = time.time()
+        topic['last_modified_time'] = time.time()
         topic['node'] = node_name
         topic['reply_count'] = 0
         topic['tid'] = tid
