@@ -7,11 +7,11 @@ from lib import PageMixin, md_to_html
 
 
 class TopicListHandler(BaseHandler, PageMixin):
+    @tornado.web.asynchronous
     def get(self):
         topics = self.db.topic.find(sort=[('last_reply_time', -1)])
         p = self._get_page()
         page = self._get_pagination(topics, perpage=12)
-
         self.render("home.html", topics=topics,
                     page=page, p=p)
 
@@ -67,6 +67,7 @@ class CreateTopicHandler(BaseHandler):
 
 
 class TopicHandler(BaseHandler):
+    @tornado.web.asynchronous
     def get(self, topic_id):
         topic = self.db.topic.find_one({"tid": int(topic_id)})
 
